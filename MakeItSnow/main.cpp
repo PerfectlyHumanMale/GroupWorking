@@ -15,6 +15,8 @@ using namespace std;
 CircleShape MouseFolllowor;
 int main()
 {
+    int metal = 11;
+
     bool click = true;
     Rooms room[100];
     Workers worker[100];
@@ -53,7 +55,10 @@ int main()
 
         vector<RectangleShape> v;
         bool gridview = false;
-        //if (Keyboard::isKeyPressed(Keyboard::G)) {
+        if (Keyboard::isKeyPressed(Keyboard::G)) {
+            metal += 10;
+            cout << metal;
+        }
         for (int i = 0; i < 10; i++) {
             v.push_back(RectangleShape());
             v.back().setPosition(i * 100, 0);
@@ -71,11 +76,23 @@ int main()
         //}
         if (event.type == Event::MouseButtonPressed && click) {
             click = false;
-            room[i].setLocation(MouseFolllowor.getPosition());
-            cout << MouseFolllowor.getPosition().x << endl;
-            cout << MouseFolllowor.getPosition().y << endl;
-            room[i].determinType(i % 3);
-
+            bool here = true;
+            int x;
+            int y;
+            x = MouseFolllowor.getPosition().x;
+            y = MouseFolllowor.getPosition().y;
+            for (int j = 0; j < 100; j++) {
+                if (room[j].getLocation() == Vector2f(MouseFolllowor.getPosition().x - (x % 100), MouseFolllowor.getPosition().y - (y % 100))) {
+                    here = false;
+                }
+            }
+            if (metal >= 10 && here == true) {
+                room[i].setLocation(MouseFolllowor.getPosition());
+                cout << MouseFolllowor.getPosition().x << endl;
+                cout << MouseFolllowor.getPosition().y << endl;
+                room[i].determinType(i % 3);
+            }
+            metal-=10;
             worker[i].setLocation(Vector2f(0, 0));
             i++;
         }

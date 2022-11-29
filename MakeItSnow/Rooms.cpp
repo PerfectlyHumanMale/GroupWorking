@@ -16,20 +16,13 @@ class Rooms : public RectangleShape {
 
     RectangleShape s;
     String savedData[5];
-
-    int resources = 11;
 public:
     Rooms() {
         s.setFillColor(Color::Green);
         s.setSize(Vector2f(100, 100));
     }
     //Types are Green House = 0, Genarater = 1, Kitchen = 2, Elevater = 3
-    int getResourses() {
-        return resources;
-    }
-    void setResourses(int r) {
-        resources = r;
-    }
+    
     void determinType(int type) {
         Type = type;
         switch (type) {
@@ -56,10 +49,10 @@ public:
         int y;
         x = spawnPoint.x;
         y = spawnPoint.y;
-        if (resources > 10) {
-            Location = Vector2f(spawnPoint.x - (x % 100), spawnPoint.y - (y % 100));
-            resources -= 10;
-        }
+        Location = Vector2f(spawnPoint.x - (x % 100), spawnPoint.y - (y % 100));
+    }
+    Vector2f getLocation() {
+        return Location;
     }
 
     void loadFile(Vector2f LocationPoint) {
