@@ -15,6 +15,7 @@ using namespace std;
 CircleShape MouseFolllowor;
 int main()
 {
+    bool click = true;
     Rooms room[100];
     Workers worker[100];
     Rooms CargoHold;
@@ -68,7 +69,8 @@ int main()
             window.draw(v.back());
         }
         //}
-        if (event.type == Event::MouseButtonPressed) {
+        if (event.type == Event::MouseButtonPressed && click) {
+            click = false;
             room[i].setLocation(MouseFolllowor.getPosition());
             cout << MouseFolllowor.getPosition().x << endl;
             cout << MouseFolllowor.getPosition().y << endl;
@@ -76,6 +78,9 @@ int main()
 
             worker[i].setLocation(Vector2f(0, 0));
             i++;
+        }
+        else if (event.type == Event::MouseButtonReleased) {
+            click = true;
         }
         for (int j = 0; j < 100; j++) {
             room[j].spawn(window);
