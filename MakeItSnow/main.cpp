@@ -102,7 +102,7 @@ int main()
         for (int j = 0; j < 100; j++) {
             room[j].spawn(window);
             worker[j].spawn(window);
-            worker[j].moveToRoom(Vector2f(100, 100), Vector2f(winWidth / 2, 0));
+            worker[j].moveToRoom(Vector2f(600, 200), Vector2f(winWidth / 2, 0));
         }
         // end the current frame
         window.display();

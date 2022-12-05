@@ -66,7 +66,6 @@ public:
         endurence = 1;
     }
     void moveToRoom(Vector2f roomLocation, Vector2f cargoLocation) {
-
         if (Location.y == roomLocation.y && Location.x <= cargoLocation.x) {
             Location.x += 1;
         }
