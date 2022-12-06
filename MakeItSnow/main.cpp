@@ -17,6 +17,7 @@ int main()
 {
     int metal = 11;
 
+    bool paused = false;
     bool click = true;
     Rooms room[100];
     Workers worker[100];
@@ -73,7 +74,6 @@ int main()
             v.back().setSize(Vector2f(1000, 2));
             window.draw(v.back());
         }
-        //}
         if (event.type == Event::MouseButtonPressed && click) {
             click = false;
             bool here = true;
@@ -103,6 +103,27 @@ int main()
             room[j].spawn(window);
             worker[j].spawn(window);
             worker[j].moveToRoom(Vector2f(600, 200), Vector2f(winWidth / 2, 0));
+        }
+
+        RectangleShape menu1;
+        menu1.setSize(Vector2f(300,400));
+        menu1.setFillColor(Color(190, 190, 190));
+        menu1.setPosition(350, 200);
+
+        RectangleShape menuX;
+        menuX.setSize(Vector2f(30, 30));
+        menuX.setFillColor(Color::Red);
+        menuX.setPosition(620, 200);
+        
+        if (Keyboard::isKeyPressed(Keyboard::M)) {
+            paused = true;
+        }
+        if (paused == true) {
+            window.draw(menu1);
+            window.draw(menuX);
+        }
+        if (menuX.getGlobalBounds().intersects(MouseFolllowor.getGlobalBounds()) && event.type == Event::MouseButtonPressed) {
+            paused = false;
         }
         // end the current frame
         window.display();
