@@ -24,6 +24,7 @@
     <ProjectGuid>{419eb508-2344-4491-a4e9-3cf6b62ed7c9}</ProjectGuid>
     <RootNamespace>MakeItSnow</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>OOPGroupWork</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -154,6 +155,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Rooms.cpp" />
     <ClCompile Include="Workers.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MakeItSnow.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -114,17 +114,25 @@ int main()
         menuX.setSize(Vector2f(30, 30));
         menuX.setFillColor(Color::Red);
         menuX.setPosition(620, 200);
-        
+
+        RectangleShape p1;
+        p1.setSize(Vector2f(280, 20));
+        p1.setFillColor(Color(220, 220, 220));
+        p1.setPosition(360, 210);
+
         if (Keyboard::isKeyPressed(Keyboard::M)) {
             paused = true;
         }
         if (paused == true) {
             window.draw(menu1);
+            window.draw(p1);
+
             window.draw(menuX);
         }
         if (menuX.getGlobalBounds().intersects(MouseFolllowor.getGlobalBounds()) && event.type == Event::MouseButtonPressed) {
             paused = false;
         }
+
         // end the current frame
         window.display();
     }

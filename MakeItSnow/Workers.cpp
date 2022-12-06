@@ -72,14 +72,17 @@ public:
         else if (Location.y == roomLocation.y && Location.x >= cargoLocation.x) {
             Location.x -= 1;
         }
-        else if (Location.y != roomLocation.y && Location.x < cargoLocation.x) {
+        else if (Location.x == cargoLocation.x && Location.y <= roomLocation.y) {
+            Location.y += 1;
+        }
+        else if (Location.x == cargoLocation.x && Location.y >= roomLocation.y) {
+            Location.y -= 1;
+        }
+        else if (Location.y != roomLocation.y && Location.x <= cargoLocation.x) {
             Location.x += 1;
         }
-        else if (Location.y != roomLocation.y && Location.x > cargoLocation.x) {
+        else if (Location.y != roomLocation.y && Location.x >= cargoLocation.x) {
             Location.x -= 1;
-        }
-        if (Location.x == cargoLocation.x) {
-            Location.y == roomLocation.y;
         }
     }
 };
