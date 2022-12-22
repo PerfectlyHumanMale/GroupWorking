@@ -60,6 +60,7 @@ int main()
             metal += 10;
             cout << metal;
         }
+        //Grid code
         for (int i = 0; i < 10; i++) {
             v.push_back(RectangleShape());
             v.back().setPosition(i * 100, 0);
@@ -74,6 +75,8 @@ int main()
             v.back().setSize(Vector2f(1000, 2));
             window.draw(v.back());
         }
+
+        //Room placement
         if (event.type == Event::MouseButtonPressed && click) {
             click = false;
             bool here = true;
@@ -81,6 +84,7 @@ int main()
             int y;
             x = MouseFolllowor.getPosition().x;
             y = MouseFolllowor.getPosition().y;
+            //aviods double placing
             for (int j = 0; j < 100; j++) {
                 if (room[j].getLocation() == Vector2f(MouseFolllowor.getPosition().x - (x % 100), MouseFolllowor.getPosition().y - (y % 100))) {
                     here = false;
@@ -99,17 +103,21 @@ int main()
         else if (event.type == Event::MouseButtonReleased) {
             click = true;
         }
+        //gameloop
         for (int j = 0; j < 100; j++) {
             room[j].spawn(window);
             worker[j].spawn(window);
             worker[j].moveToRoom(Vector2f(600, 200), Vector2f(winWidth / 2, 0));
+            //room[0].setFillColor( Color( room[i].testOutput(1),1,1));
         }
 
+        //pause menu
         RectangleShape menu1;
         menu1.setSize(Vector2f(300,400));
         menu1.setFillColor(Color(190, 190, 190));
         menu1.setPosition(350, 200);
 
+        //menu x
         RectangleShape menuX;
         menuX.setSize(Vector2f(30, 30));
         menuX.setFillColor(Color::Red);

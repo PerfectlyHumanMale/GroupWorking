@@ -2,12 +2,15 @@
 // these were include to save space & when time coding
 #include <sstream>
 #include <iostream>
+#include "Workers.cpp"
+
 using namespace sf;
 using namespace std;
 class Rooms : public RectangleShape {
     Vector2f Location;
     Texture Sprite;
-
+    
+    //Workers w[100];
     int oxagen = 10;
     int energy = 10;
     int food = 10;
@@ -82,6 +85,13 @@ public:
         return;
 
     }
+    /*int testOutput(int verable) {
+        for (int i = 0; i < 100; i++) {
+            if (s.getGlobalBounds().contains(w[i].getLocation())) {
+                return verable++;
+            }
+        }
+    }*/
     String saveData() {
         String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2];
         return saveString;

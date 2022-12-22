@@ -1,3 +1,6 @@
+#ifndef MYHEADEFILE_H
+#define MYHEADEFILE_H
+
 #include <SFML/Graphics.hpp> 
 // these were include to save space & when time coding
 #include <sstream>
@@ -27,6 +30,9 @@ public:
         s.setPosition(cargoLocation);
         s.setFillColor(Color::Red);
         s.setRadius(10);
+    }
+    Vector2f getLocation() {
+        return Location;
     }
     void getCargoLocation(Vector2f v) {
         cargoLocation = v;
@@ -66,23 +72,24 @@ public:
         endurence = 1;
     }
     void moveToRoom(Vector2f roomLocation, Vector2f cargoLocation) {
-        if (Location.y == roomLocation.y && Location.x <= cargoLocation.x) {
-            Location.x += 1;
+        if (Location.y == roomLocation.y && Location.x < roomLocation.x) {
+            Location.x += 100;
         }
-        else if (Location.y == roomLocation.y && Location.x >= cargoLocation.x) {
-            Location.x -= 1;
+        else if (Location.y == roomLocation.y && Location.x > roomLocation.x) {
+            Location.x -= 100;
         }
-        else if (Location.x == cargoLocation.x && Location.y <= roomLocation.y) {
+        else if (Location.x == cargoLocation.x && Location.y < roomLocation.y) {
             Location.y += 1;
         }
-        else if (Location.x == cargoLocation.x && Location.y >= roomLocation.y) {
+        else if (Location.x == cargoLocation.x && Location.y > roomLocation.y) {
             Location.y -= 1;
         }
-        else if (Location.y != roomLocation.y && Location.x <= cargoLocation.x) {
+        else if (Location.y != roomLocation.y && Location.x < cargoLocation.x) {
             Location.x += 1;
         }
-        else if (Location.y != roomLocation.y && Location.x >= cargoLocation.x) {
+        else if (Location.y != roomLocation.y && Location.x > cargoLocation.x) {
             Location.x -= 1;
         }
     }
 };
+#endif
