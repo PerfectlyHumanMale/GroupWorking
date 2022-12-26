@@ -1,10 +1,12 @@
-#ifndef MYHEADEFILE_H
-#define MYHEADEFILE_H
+#ifndef Workers_H
+#define Workers_H
 
 #include <SFML/Graphics.hpp> 
 // these were include to save space & when time coding
 #include <sstream>
 #include <iostream>
+#include "Rooms.cpp"
+
 using namespace sf;
 using namespace std;
 
@@ -89,6 +91,15 @@ public:
         }
         else if (Location.y != roomLocation.y && Location.x > cargoLocation.x) {
             Location.x -= 1;
+        }
+    }
+
+
+int testOutput(Rooms room ) {
+        for (int i = 0; i < 100; i++) {
+            if (room.getGlobalBounds().contains(room.getLocation())) {
+                return 1;
+            }
         }
     }
 };

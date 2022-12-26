@@ -13,6 +13,8 @@ using namespace std;
 
 //here is our main game window
 CircleShape MouseFolllowor;
+
+
 int main()
 {
     int metal = 11;
@@ -29,10 +31,10 @@ int main()
     //run the program as long as the window is open
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
+        Event event;
         while (window.pollEvent(event)) {
             // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed) {
+            if (event.type == Event::Closed) {
                 window.close();
             }
         }
@@ -104,11 +106,13 @@ int main()
             click = true;
         }
         //gameloop
+        int t = 0;
         for (int j = 0; j < 100; j++) {
             room[j].spawn(window);
             worker[j].spawn(window);
-            worker[j].moveToRoom(Vector2f(600, 200), Vector2f(winWidth / 2, 0));
-            //room[0].setFillColor( Color( room[i].testOutput(1),1,1));
+            worker[j].moveToRoom(Vector2f(100,300), Vector2f(winWidth / 2, 0));
+            t+= worker[j].testOutput(room[i]);
+            room[i].setFillColor(Color(t, t, t));
         }
 
         //pause menu

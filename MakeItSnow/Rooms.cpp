@@ -1,8 +1,10 @@
+#ifndef Rooms_H
+#define Rooms_H
+
 #include <SFML/Graphics.hpp> 
 // these were include to save space & when time coding
 #include <sstream>
 #include <iostream>
-#include "Workers.cpp"
 
 using namespace sf;
 using namespace std;
@@ -85,15 +87,10 @@ public:
         return;
 
     }
-    /*int testOutput(int verable) {
-        for (int i = 0; i < 100; i++) {
-            if (s.getGlobalBounds().contains(w[i].getLocation())) {
-                return verable++;
-            }
-        }
-    }*/
+    
     String saveData() {
         String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2];
         return saveString;
     }
 };
+#endif
