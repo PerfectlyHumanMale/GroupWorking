@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Rooms.cpp"
 #include "Workers.cpp"
+#include "Menus.cpp"
 using namespace sf;
 using namespace std;
 
@@ -13,13 +14,35 @@ using namespace std;
 
 //here is our main game window
 CircleShape MouseFolllowor;
+Vector2f LocationOfRoom;
 
+void gridview(RenderWindow& wind) {
+    vector<RectangleShape> v;
+    for (int i = 0; i < 10; i++) {
+        v.push_back(RectangleShape());
+        v.back().setPosition(i * 100, 0);
+        v.back().setFillColor(Color::White);
+        v.back().setSize(Vector2f(2, 1000));
+        wind.draw(v.back());
+    }
+    for (int j = 0; j < 10; j++) {
+        v.push_back(RectangleShape());
+        v.back().setPosition(0, j * 100);
+        v.back().setFillColor(Color::White);
+        v.back().setSize(Vector2f(1000, 2));
+        wind.draw(v.back());
+    }
+}
 
 int main()
 {
+    Menus menu;
+    
     int metal = 11;
+    int t = 0;
 
     bool paused = false;
+    bool buildup = false;
     bool click = true;
     Rooms room[100];
     Workers worker[100];
@@ -27,6 +50,8 @@ int main()
     RenderWindow window(sf::VideoMode(winWidth, winHeight), "My window");
     //define the coordenites on our screen
     int i = 0;
+
+    menu.setKey(Keyboard::B);
 
     //run the program as long as the window is open
     while (window.isOpen()) {
@@ -46,7 +71,7 @@ int main()
         CargoHold.setOutlineThickness(10);
 
         // Resets the window 
-        window.clear(sf::Color::Black);
+        window.clear(Color::Black);
 
         //Makes the object follow the mouse
         MouseFolllowor.setPosition(Mouse::getPosition().x - 475, Mouse::getPosition().y - 70);
@@ -56,27 +81,12 @@ int main()
         RectangleShape r;
         r.setSize(Vector2f(100, 100));
 
-        vector<RectangleShape> v;
-        bool gridview = false;
         if (Keyboard::isKeyPressed(Keyboard::G)) {
             metal += 10;
             cout << metal;
         }
-        //Grid code
-        for (int i = 0; i < 10; i++) {
-            v.push_back(RectangleShape());
-            v.back().setPosition(i * 100, 0);
-            v.back().setFillColor(Color::White);
-            v.back().setSize(Vector2f(2, 1000));
-            window.draw(v.back());
-        }
-        for (int j = 0; j < 10; j++) {
-            v.push_back(RectangleShape());
-            v.back().setPosition(0, j * 100);
-            v.back().setFillColor(Color::White);
-            v.back().setSize(Vector2f(1000, 2));
-            window.draw(v.back());
-        }
+        
+        gridview(window);
 
         //Room placement
         if (event.type == Event::MouseButtonPressed && click) {
@@ -98,7 +108,7 @@ int main()
                 cout << MouseFolllowor.getPosition().y << endl;
                 room[i].determinType(i % 3);
             }
-            metal-=10;
+            metal -= 10;
             worker[i].setLocation(Vector2f(0, 0));
             i++;
         }
@@ -106,44 +116,26 @@ int main()
             click = true;
         }
         //gameloop
-        int t = 0;
         for (int j = 0; j < 100; j++) {
             room[j].spawn(window);
             worker[j].spawn(window);
-            worker[j].moveToRoom(Vector2f(100,300), Vector2f(winWidth / 2, 0));
-            t+= worker[j].testOutput(room[i]);
+            worker[j].moveToRoom(LocationOfRoom, Vector2f(winWidth / 2, 0));
+            t += worker[j].testOutput(room[i]);
             room[i].setFillColor(Color(t, t, t));
         }
 
-        //pause menu
-        RectangleShape menu1;
-        menu1.setSize(Vector2f(300,400));
-        menu1.setFillColor(Color(190, 190, 190));
-        menu1.setPosition(350, 200);
-
-        //menu x
-        RectangleShape menuX;
-        menuX.setSize(Vector2f(30, 30));
-        menuX.setFillColor(Color::Red);
-        menuX.setPosition(620, 200);
-
-        RectangleShape p1;
-        p1.setSize(Vector2f(280, 20));
-        p1.setFillColor(Color(220, 220, 220));
-        p1.setPosition(360, 210);
-
-        if (Keyboard::isKeyPressed(Keyboard::M)) {
-            paused = true;
+        //worker to room
+        if (Keyboard::isKeyPressed(Keyboard::O)) {
+        //LocationOfRoom = MouseFolllowor.getPosition();
+            for (int i = 0; i < 100;i++) {
+                if (MouseFolllowor.getGlobalBounds().contains(room[i].getLocation())){
+                    LocationOfRoom = room[i].getLocation();
+                }
+            }
         }
-        if (paused == true) {
-            window.draw(menu1);
-            window.draw(p1);
-
-            window.draw(menuX);
-        }
-        if (menuX.getGlobalBounds().intersects(MouseFolllowor.getGlobalBounds()) && event.type == Event::MouseButtonPressed) {
-            paused = false;
-        }
+        // Button press stuff
+        
+        menu.drawMenu(Vector2f(100, 100), Vector2f(100, 100), window, MouseFolllowor);
 
         // end the current frame
         window.display();

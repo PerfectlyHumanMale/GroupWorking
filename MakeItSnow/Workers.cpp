@@ -94,7 +94,6 @@ public:
         }
     }
 
-
 int testOutput(Rooms room ) {
         for (int i = 0; i < 100; i++) {
             if (room.getGlobalBounds().contains(room.getLocation())) {

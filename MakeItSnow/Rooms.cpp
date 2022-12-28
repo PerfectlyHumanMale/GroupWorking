@@ -2,7 +2,6 @@
 #define Rooms_H
 
 #include <SFML/Graphics.hpp> 
-// these were include to save space & when time coding
 #include <sstream>
 #include <iostream>
 
@@ -45,7 +44,7 @@ public:
             break;
         }
     }
-    void spawn(sf::RenderWindow& wind) {
+    void spawn(RenderWindow& wind) {
         s.setPosition(Location);
         wind.draw(s);
     }
