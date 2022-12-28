@@ -25,25 +25,7 @@ public:
         s.setFillColor(Color::Green);
         s.setSize(Vector2f(100, 100));
     }
-    //Types are Green House = 0, Genarater = 1, Kitchen = 2, Elevater = 3
-    
-    void determinType(int type) {
-        Type = type;
-        switch (type) {
-        case 0:
-            s.setFillColor(Color(0, 200, 0));
-            break;
-        case 1:
-            s.setFillColor(Color(200, 0, 0));
-            break;
-        case 2:
-            s.setFillColor(Color(0, 0, 200));
-            break;
-        case 3:
-            s.setFillColor(Color(200, 200, 200));
-            break;
-        }
-    }
+
     void spawn(RenderWindow& wind) {
         s.setPosition(Location);
         wind.draw(s);
@@ -87,6 +69,30 @@ public:
 
     }
     
+    //Types are Green House = 0, Genarater = 1, Kitchen = 2, Elevater = 3
+    void determinType(int type, int cargoX) {
+        Type = type;
+        if (cargoX == getLocation().x) {
+            s.setFillColor(Color(100, 0, 0));
+        }
+        else {
+            switch (type) {
+            case 0:
+                s.setFillColor(Color(0, 200, 0));
+                break;
+            case 1:
+                s.setFillColor(Color(200, 0, 0));
+                break;
+            case 2:
+                s.setFillColor(Color(0, 0, 200));
+                break;
+            default:
+                s.setFillColor(Color(255, 255, 255));
+                break;
+            }
+        }
+    }
+
     String saveData() {
         String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2];
         return saveString;

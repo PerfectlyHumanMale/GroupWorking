@@ -47,11 +47,17 @@ int main()
     Rooms room[100];
     Workers worker[100];
     Rooms CargoHold;
-    RenderWindow window(sf::VideoMode(winWidth, winHeight), "My window");
+    RenderWindow window(sf::VideoMode(winWidth, winHeight), "Main");
     //define the coordenites on our screen
     int i = 0;
 
     menu.setKey(Keyboard::B);
+
+    //Define the cargo
+    CargoHold.setLocation(Vector2f(winWidth / 2, 100));
+    CargoHold.setFillColor(Color(255, 255, 255));
+    CargoHold.setOutlineColor(Color(255, 255, 255));
+    CargoHold.setOutlineThickness(10);
 
     //run the program as long as the window is open
     while (window.isOpen()) {
@@ -63,12 +69,6 @@ int main()
                 window.close();
             }
         }
-        //Define the cargo
-        CargoHold.setLocation(Vector2f(winWidth / 2, 100));
-        CargoHold.spawn(window);
-        CargoHold.setFillColor(Color(50, 50, 50));
-        CargoHold.setOutlineColor(Color(200, 200, 200));
-        CargoHold.setOutlineThickness(10);
 
         // Resets the window 
         window.clear(Color::Black);
@@ -106,9 +106,9 @@ int main()
                 room[i].setLocation(MouseFolllowor.getPosition());
                 cout << MouseFolllowor.getPosition().x << endl;
                 cout << MouseFolllowor.getPosition().y << endl;
-                room[i].determinType(i % 3);
+                room[i].determinType(i % 3, CargoHold.getLocation().x);
+                metal -= 10;
             }
-            metal -= 10;
             worker[i].setLocation(Vector2f(0, 0));
             i++;
         }
@@ -116,21 +116,22 @@ int main()
             click = true;
         }
         //gameloop
-        for (int j = 0; j < 100; j++) {
+        for (int j = 10; j < 100; j++) {
             room[j].spawn(window);
             worker[j].spawn(window);
             worker[j].moveToRoom(LocationOfRoom, Vector2f(winWidth / 2, 0));
-            t += worker[j].testOutput(room[i]);
-            room[i].setFillColor(Color(t, t, t));
+            CargoHold.spawn(window);
+            //t += worker[j].testOutput(room[i]);
+            //room[i].setFillColor(Color(t, t, t));
         }
 
         //worker to room
         if (Keyboard::isKeyPressed(Keyboard::O)) {
         //LocationOfRoom = MouseFolllowor.getPosition();
             for (int i = 0; i < 100;i++) {
-                if (MouseFolllowor.getGlobalBounds().contains(room[i].getLocation())){
-                    LocationOfRoom = room[i].getLocation();
-                }
+                //if (MouseFolllowor.getGlobalBounds().contains(room[i].getLocation())){
+                  //  LocationOfRoom = room[i].getLocation();
+                //}
             }
         }
         // Button press stuff
