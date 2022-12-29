@@ -81,8 +81,8 @@ int main()
         MouseFolllowor.setRadius(10);
         window.draw(MouseFolllowor);
 
-        RectangleShape r;
-        r.setSize(Vector2f(100, 100));
+        //RectangleShape r;
+        //r.setSize(Vector2f(100, 100));
 
         if (Keyboard::isKeyPressed(Keyboard::G)) {
             metal += 10;
