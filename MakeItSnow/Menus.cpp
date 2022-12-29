@@ -5,6 +5,7 @@
 using namespace sf;
 using namespace std;
 class Menus {
+#pragma region publicVerables 
     RectangleShape menu;
     Keyboard::Key setkey;
     bool up;
@@ -15,6 +16,7 @@ class Menus {
     vector <RectangleShape> icon;
     vector <Texture> iconTexture;
     vector <Text> tabText;
+#pragma endregion publicVerables 
 public:
     void setKey(Keyboard::Key key) {
         setkey = key;
@@ -32,8 +34,13 @@ public:
         for (int i = 0; i < tabnum; i++) {
             tabs.push_back(RectangleShape());
             tabs[i].setPosition(menu.getPosition().x + 5, menu.getPosition().y + tabPostion);
-            tabs[i].setSize(Vector2f((menu.getSize().x - 10), 80));
-            tabPostion += 85;
+            tabs[i].setSize(Vector2f((menu.getSize().x - 10), 50));
+
+            icon.push_back(RectangleShape());
+            icon[i].setFillColor(Color(255, 0, 0));
+            icon[i].setPosition(menu.getPosition().x + 5, menu.getPosition().y + tabPostion);
+            icon[i].setSize(Vector2f(50, 50));
+            tabPostion += 55;
         }
     }
     void createMenu(Vector2f Size, Vector2f Location) {
@@ -52,6 +59,7 @@ public:
             wind.draw(menu);
             for (int i = 0; i < tabs.size();i++) {
                 wind.draw(tabs[i]);
+                wind.draw(icon[i]);
             }
         }
     }

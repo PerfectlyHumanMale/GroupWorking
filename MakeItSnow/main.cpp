@@ -1,5 +1,5 @@
+#pragma region imports
 #include <SFML/Graphics.hpp> 
-// these were include to save space & when time coding
 #include <sstream>
 #include <iostream>
 #include "Rooms.cpp"
@@ -7,14 +7,26 @@
 #include "Menus.cpp"
 using namespace sf;
 using namespace std;
+#pragma endregion imports
 
-// define render window size constants
-#define winWidth 1000
-#define winHeight 1000
-
-//here is our main game window
+#pragma region publicVerables 
 CircleShape MouseFolllowor;
 Vector2f LocationOfRoom;
+#define winWidth 1000
+#define winHeight 1000
+Menus menu;
+int metal = 11;
+int t = 0;
+bool paused = false;
+bool buildup = false;
+bool click = true;
+Rooms room[100];
+Workers worker[100];
+Rooms CargoHold;
+RenderWindow window(sf::VideoMode(winWidth, winHeight), "Main");
+int i = 0;
+
+#pragma endregion publicVerables 
 
 void gridview(RenderWindow& wind) {
     vector<RectangleShape> v;
@@ -36,62 +48,47 @@ void gridview(RenderWindow& wind) {
 
 int main()
 {
-    Menus menu;
-    
-    int metal = 11;
-    int t = 0;
-
+    #pragma region defineMenu 
     menu.setKey(Keyboard::B);
-
-    bool paused = false;
-    bool buildup = false;
-    bool click = true;
-    Rooms room[100];
-    Workers worker[100];
-    Rooms CargoHold;
-    RenderWindow window(sf::VideoMode(winWidth, winHeight), "Main");
-    //define the coordenites on our screen
-    int i = 0;
-
     menu.createMenu(Vector2f(300, 400), Vector2f(300, 100));
     menu.createTab(10);
+    #pragma endregion defineMenu
 
-    //Define the cargo
+    #pragma region defineCargo
     CargoHold.setLocation(Vector2f(winWidth / 2, 100));
     CargoHold.setFillColor(Color(255, 255, 255));
     CargoHold.setOutlineColor(Color(255, 255, 255));
     CargoHold.setOutlineThickness(10);
+    #pragma endregion defineCargo
 
-    //run the program as long as the window is open
+    #pragma region houseKeeping
     while (window.isOpen()) {
-        // check all the window's events that were triggered since the last iteration of the loop
         Event event;
         while (window.pollEvent(event)) {
-            // "close requested" event: we close the window
             if (event.type == Event::Closed) {
                 window.close();
             }
         }
-
-        // Resets the window 
         window.clear(Color::Black);
+       #pragma endregion houseKeeping
 
-        //Makes the object follow the mouse
+        #pragma region defineMouse
         MouseFolllowor.setPosition(Mouse::getPosition().x - 475, Mouse::getPosition().y - 70);
         MouseFolllowor.setRadius(10);
         window.draw(MouseFolllowor);
+        #pragma endregion defineMouse
 
-        //RectangleShape r;
-        //r.setSize(Vector2f(100, 100));
-
-        if (Keyboard::isKeyPressed(Keyboard::G)) {
+        #pragma region buttonStuff
+        if (Keyboard::isKeyPressed(Keyboard::H)) {
             metal += 10;
             cout << metal;
         }
-        
-        gridview(window);
+        if (Keyboard::isKeyPressed(Keyboard::G)) {
+            gridview(window);
+        }
+        #pragma endregion buttonStuff
 
-        //Room placement
+        #pragma region RoomPlacement
         if (event.type == Event::MouseButtonPressed && click) {
             click = false;
             bool here = true;
@@ -118,7 +115,9 @@ int main()
         else if (event.type == Event::MouseButtonReleased) {
             click = true;
         }
-        //gameloop
+        #pragma endregion RoomPlacement
+
+        #pragma region Gameloop
         for (int j = 0; j < 100; j++) {
             room[j].spawn(window);
             worker[j].spawn(window);
@@ -127,8 +126,9 @@ int main()
             t += worker[j].testOutput(room[i]);
             CargoHold.setFillColor(Color(t, t, t));
         }
+        #pragma endregion Gameloop
 
-        //worker to room
+        #pragma region WorkerToRoom
         if (Keyboard::isKeyPressed(Keyboard::O)) {
         //LocationOfRoom = MouseFolllowor.getPosition();
             for (int i = 0; i < 100;i++) {
@@ -137,8 +137,9 @@ int main()
                 }
             }
         }
+        #pragma endregion Gameloop
+
         menu.drawMenu(window);
-        // end the current frame
         window.display();
     }
     return 0;
