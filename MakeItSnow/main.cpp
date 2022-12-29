@@ -41,6 +41,8 @@ int main()
     int metal = 11;
     int t = 0;
 
+    menu.setKey(Keyboard::B);
+
     bool paused = false;
     bool buildup = false;
     bool click = true;
@@ -51,7 +53,8 @@ int main()
     //define the coordenites on our screen
     int i = 0;
 
-    menu.setKey(Keyboard::B);
+    menu.createMenu(Vector2f(300, 400), Vector2f(300, 100));
+    menu.createTab(10);
 
     //Define the cargo
     CargoHold.setLocation(Vector2f(winWidth / 2, 100));
@@ -121,8 +124,8 @@ int main()
             worker[j].spawn(window);
             worker[j].moveToRoom(LocationOfRoom, Vector2f(winWidth / 2, 0));
             CargoHold.spawn(window);
-            //t += worker[j].testOutput(room[i]);
-            //room[i].setFillColor(Color(t, t, t));
+            t += worker[j].testOutput(room[i]);
+            CargoHold.setFillColor(Color(t, t, t));
         }
 
         //worker to room
@@ -134,10 +137,7 @@ int main()
                 }
             }
         }
-        // Button press stuff
-        
-        menu.drawMenu(Vector2f(100, 100), Vector2f(100, 100), window, MouseFolllowor);
-
+        menu.drawMenu(window);
         // end the current frame
         window.display();
     }
