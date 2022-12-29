@@ -116,7 +116,7 @@ int main()
             click = true;
         }
         //gameloop
-        for (int j = 10; j < 100; j++) {
+        for (int j = 0; j < 100; j++) {
             room[j].spawn(window);
             worker[j].spawn(window);
             worker[j].moveToRoom(LocationOfRoom, Vector2f(winWidth / 2, 0));
@@ -129,9 +129,9 @@ int main()
         if (Keyboard::isKeyPressed(Keyboard::O)) {
         //LocationOfRoom = MouseFolllowor.getPosition();
             for (int i = 0; i < 100;i++) {
-                //if (MouseFolllowor.getGlobalBounds().contains(room[i].getLocation())){
-                  //  LocationOfRoom = room[i].getLocation();
-                //}
+                if (MouseFolllowor.getGlobalBounds().contains(room[i].getLocation())){
+                    LocationOfRoom = room[i].getLocation();
+                }
             }
         }
         // Button press stuff

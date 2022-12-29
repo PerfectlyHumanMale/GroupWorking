@@ -9,7 +9,8 @@ class Menus {
     Keyboard::Key setkey;
     bool up;
     Event event;
-    RectangleShape tabs[];
+    vector <RectangleShape> tabs;
+    vector <bool> tabclick;
 
 public:
     void setKey(Keyboard::Key key) {
@@ -29,6 +30,12 @@ public:
         }
         if (up) {
             wind.draw(menu);
+        }
+    }
+    void createTab(int tabnum) {
+        for (int i = 0; i < tabnum; i++) {
+            tabs[i].setPosition(menu.getPosition().x + 5, menu.getPosition().y + 5);
+            tabs[i].setSize(Vector2f((menu.getSize().x - 10), 20));
         }
     }
 };
