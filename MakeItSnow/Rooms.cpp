@@ -66,7 +66,6 @@ public:
             break;
         }
         return;
-
     }
     
     //Types are Green House = 0, Genarater = 1, Kitchen = 2, Elevater = 3

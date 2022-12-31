@@ -12,7 +12,7 @@ using namespace std;
 #pragma region publicVerables 
 CircleShape MouseFolllowor;
 Vector2f LocationOfRoom;
-#define winWidth 1000
+#define winWidth 1100
 #define winHeight 1000
 Menus menu;
 int metal = 11;
@@ -30,7 +30,7 @@ int i = 0;
 
 void gridview(RenderWindow& wind) {
     vector<RectangleShape> v;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 11; i++) {
         v.push_back(RectangleShape());
         v.back().setPosition(i * 100, 0);
         v.back().setFillColor(Color::White);
@@ -41,7 +41,7 @@ void gridview(RenderWindow& wind) {
         v.push_back(RectangleShape());
         v.back().setPosition(0, j * 100);
         v.back().setFillColor(Color::White);
-        v.back().setSize(Vector2f(1000, 2));
+        v.back().setSize(Vector2f(1100, 2));
         wind.draw(v.back());
     }
 }
@@ -138,7 +138,7 @@ int main()
             }
         }
         #pragma endregion Gameloop
-
+        //menu.setIconText("dogs with drip.PNG",0,"Blacknorthdemo-mLE25.ttf");
         menu.drawMenu(window);
         window.display();
     }
