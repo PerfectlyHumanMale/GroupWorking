@@ -14,7 +14,9 @@ CircleShape MouseFolllowor;
 Vector2f LocationOfRoom;
 #define winWidth 1100
 #define winHeight 1000
-Menus menu;
+Menus MinigameMenu;
+Menus WorkerMenu;
+Menus BuildMenu;
 int metal = 11;
 int t = 0;
 bool paused = false;
@@ -45,13 +47,24 @@ void gridview(RenderWindow& wind) {
         wind.draw(v.back());
     }
 }
+#pragma region menuMethods
+
+#pragma endregion menuMethods
 
 int main()
 {
     #pragma region defineMenu 
-    menu.setKey(Keyboard::B);
-    menu.createMenu(Vector2f(300, 400), Vector2f(300, 100));
-    menu.createTab(10);
+    MinigameMenu.setKey(Keyboard::B);
+    MinigameMenu.createMenu(Vector2f(300, 400), Vector2f(300, 100));
+    MinigameMenu.createTab(6);
+
+    WorkerMenu.setKey(Keyboard::N);
+    WorkerMenu.createMenu(Vector2f(300, 400), Vector2f(0, 0));
+    WorkerMenu.createTab(6);
+
+    BuildMenu.setKey(Keyboard::M);
+    BuildMenu.createMenu(Vector2f(300, 400), Vector2f(800, 0));
+    BuildMenu.createTab(6);
     #pragma endregion defineMenu
 
     #pragma region defineCargo
@@ -85,6 +98,14 @@ int main()
         }
         if (Keyboard::isKeyPressed(Keyboard::G)) {
             gridview(window);
+        }
+        if (Keyboard::isKeyPressed(Keyboard::O)) {
+            //LocationOfRoom = MouseFolllowor.getPosition();
+            for (int i = 0; i < 100;i++) {
+                if (MouseFolllowor.getGlobalBounds().contains(room[i].getLocation())) {
+                    LocationOfRoom = room[i].getLocation();
+                }
+            }
         }
         #pragma endregion buttonStuff
 
@@ -125,21 +146,12 @@ int main()
             CargoHold.spawn(window);
             t += worker[j].testOutput(room[i]);
             CargoHold.setFillColor(Color(t, t, t));
+            WorkerMenu.drawMenu(window);
+            BuildMenu.drawMenu(window);
+            MinigameMenu.drawMenu(window);
         }
         #pragma endregion Gameloop
-
-        #pragma region WorkerToRoom
-        if (Keyboard::isKeyPressed(Keyboard::O)) {
-        //LocationOfRoom = MouseFolllowor.getPosition();
-            for (int i = 0; i < 100;i++) {
-                if (MouseFolllowor.getGlobalBounds().contains(room[i].getLocation())){
-                    LocationOfRoom = room[i].getLocation();
-                }
-            }
-        }
-        #pragma endregion Gameloop
-        //menu.setIconText("dogs with drip.PNG",0,"Blacknorthdemo-mLE25.ttf");
-        menu.drawMenu(window);
+        //menu.setIconText("dogs with drip.PNG",0,"dasdd");
         window.display();
     }
     return 0;

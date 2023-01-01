@@ -23,7 +23,7 @@ public:
     }
     void setIconText(String texture, int iconNumber, String desplayText) {
         Font font;
-        font.loadFromFile("MakeItSnowBlacknorthdemo-mLE25.ttf");
+        font.loadFromFile("ShortBaby-Mg2w.ttf");
 
         tabText[iconNumber].setFont(font);
         tabText[iconNumber].setString(desplayText);
