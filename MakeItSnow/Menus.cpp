@@ -15,6 +15,7 @@ class Menus {
     vector <RectangleShape> icon;
     vector <Texture> iconTexture;
     vector <Text> tabText;
+    vector <bool> methods;
 
 public:
     void setKey(Keyboard::Key key) {
@@ -66,5 +67,8 @@ public:
                 wind.draw(icon[i]);
             }
         }
+    }
+    void AsignMethods(int tab) {
+
     }
 };

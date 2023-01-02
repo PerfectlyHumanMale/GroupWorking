@@ -27,7 +27,6 @@ Workers worker[100];
 Rooms CargoHold;
 RenderWindow window(sf::VideoMode(winWidth, winHeight), "Main");
 int i = 0;
-
 #pragma endregion publicVerables 
 
 void gridview(RenderWindow& wind) {
@@ -48,7 +47,15 @@ void gridview(RenderWindow& wind) {
     }
 }
 #pragma region menuMethods
+void CreatWorker(bool on) {
+    
+}
+void BuildRoom(bool on, int type) {
 
+}
+void OpenGame(bool on, int gamenumber) {
+
+}
 #pragma endregion menuMethods
 
 int main()
@@ -141,7 +148,7 @@ int main()
         #pragma region Gameloop
         for (int j = 0; j < 100; j++) {
             room[j].spawn(window);
-            worker[j].spawn(window);
+            //worker[j].spawn(window);
             worker[j].moveToRoom(LocationOfRoom, Vector2f(winWidth / 2, 0));
             CargoHold.spawn(window);
             t += worker[j].testOutput(room[i]);
