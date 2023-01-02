@@ -17,6 +17,7 @@ class Workers {
     Texture Sprite;
 
     Vector2f cargoLocation;
+    Vector2f RoomLocation;
 
     String Name;
     double health;
@@ -75,23 +76,26 @@ public:
         intellegence = 1;
         endurence = 1;
     }
-    void moveToRoom(Vector2f roomLocation, Vector2f cargoLocation) {
-        if (Location.y == roomLocation.y && Location.x < roomLocation.x) {
+    void setRoom(Vector2f room) {
+        RoomLocation = room;
+    }
+    void moveToRoom(Vector2f cargoLocation) {
+        if (Location.y == RoomLocation.y && Location.x < RoomLocation.x) {
             Location.x += 1;
         }
-        else if (Location.y == roomLocation.y && Location.x > roomLocation.x) {
+        else if (Location.y == RoomLocation.y && Location.x > RoomLocation.x) {
             Location.x -= 1;
         }
-        else if (Location.x == cargoLocation.x && Location.y < roomLocation.y) {
+        else if (Location.x == cargoLocation.x && Location.y < RoomLocation.y) {
             Location.y += 1;
         }
-        else if (Location.x == cargoLocation.x && Location.y > roomLocation.y) {
+        else if (Location.x == cargoLocation.x && Location.y > RoomLocation.y) {
             Location.y -= 1;
         }
-        else if (Location.y != roomLocation.y && Location.x < cargoLocation.x) {
+        else if (Location.y != RoomLocation.y && Location.x < cargoLocation.x) {
             Location.x += 1;
         }
-        else if (Location.y != roomLocation.y && Location.x > cargoLocation.x) {
+        else if (Location.y != RoomLocation.y && Location.x > cargoLocation.x) {
             Location.x -= 1;
         }
     }
@@ -101,10 +105,17 @@ int testOutput(Rooms room ) {
                 return 1;
             }
     }
-void desplaynumber(CircleShape MouseFolllowor, bool click) {
+void setnumber(int num) {
+    workerNumber = num;
+}
+int desplaynumber(CircleShape MouseFolllowor, bool click, int num) {
     if (s.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
-        cout << "clicked";
+        if (num == workerNumber) {
+            //cout << "clicked ";
+            return workerNumber;
+        }
     }
+    return 0;
 }
 };
 #endif

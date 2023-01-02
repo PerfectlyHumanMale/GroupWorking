@@ -93,8 +93,8 @@ public:
     }
     Vector2f returnClick(CircleShape MouseFolllowor) {
         if (Keyboard::isKeyPressed(Keyboard::O)&& MouseFolllowor.getPosition() == s.getPosition()) {
-            return MouseFolllowor.getPosition();
             cout << "String. MouseFolllowor.getPosition();";
+            return MouseFolllowor.getPosition();
         }
     }
     String saveData() {

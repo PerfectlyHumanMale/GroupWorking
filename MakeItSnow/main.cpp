@@ -27,6 +27,7 @@ Workers worker[100];
 Rooms CargoHold;
 RenderWindow window(sf::VideoMode(winWidth, winHeight), "Main");
 int i = 0;
+int workernumber;
 #pragma endregion publicVerables 
 
 void gridview(RenderWindow& wind) {
@@ -130,6 +131,10 @@ int main()
                 metal -= 10;
             }
             worker[i].setLocation(Vector2f(0, 0));
+            worker[i].setnumber(i);
+            worker[i].setRoom(room[i].getLocation());
+            //worker[i].setRoom();
+            cout << worker[i].desplaynumber(MouseFolllowor,click, i);
             i++;
         }
         else if (event.type == Event::MouseButtonReleased) {
@@ -137,6 +142,7 @@ int main()
         }
         #pragma endregion RoomPlacement
 
+        worker[i].moveToRoom(CargoHold.getPosition());
         #pragma region Gameloop
         for (int j = 0; j < 100; j++) {
             CargoHold.spawn(window);
@@ -147,8 +153,8 @@ int main()
             room[j].spawn(window);
 
             worker[j].spawn(window);
-            worker[j].moveToRoom(Vector2f(100, 300), Vector2f(winWidth / 2, 0));
-            worker[j].desplaynumber(MouseFolllowor, click);
+            worker[j].moveToRoom(CargoHold.getLocation());
+            worker[j].desplaynumber(MouseFolllowor, click, workernumber);
 
             WorkerMenu.drawMenu(window);
             BuildMenu.drawMenu(window);
