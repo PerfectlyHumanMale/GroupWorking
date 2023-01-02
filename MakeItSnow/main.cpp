@@ -92,12 +92,6 @@ int main()
         window.clear(Color::Black);
        #pragma endregion houseKeeping
 
-        #pragma region defineMouse
-        MouseFolllowor.setPosition(Mouse::getPosition().x - 475, Mouse::getPosition().y - 70);
-        MouseFolllowor.setRadius(10);
-        window.draw(MouseFolllowor);
-        #pragma endregion defineMouse
-
         #pragma region buttonStuff
         if (Keyboard::isKeyPressed(Keyboard::H)) {
             metal += 10;
@@ -120,10 +114,8 @@ int main()
         if (event.type == Event::MouseButtonPressed && click) {
             click = false;
             bool here = true;
-            int x;
-            int y;
-            x = MouseFolllowor.getPosition().x;
-            y = MouseFolllowor.getPosition().y;
+            int x = MouseFolllowor.getPosition().x;
+            int y = MouseFolllowor.getPosition().y;
             //aviods double placing
             for (int j = 0; j < 100; j++) {
                 if (room[j].getLocation() == Vector2f(MouseFolllowor.getPosition().x - (x % 100), MouseFolllowor.getPosition().y - (y % 100))) {
@@ -147,18 +139,28 @@ int main()
 
         #pragma region Gameloop
         for (int j = 0; j < 100; j++) {
-            room[j].spawn(window);
-            //worker[j].spawn(window);
-            worker[j].moveToRoom(LocationOfRoom, Vector2f(winWidth / 2, 0));
             CargoHold.spawn(window);
             t += worker[j].testOutput(room[i]);
             CargoHold.setFillColor(Color(t, t, t));
+
+            room[i].returnClick(MouseFolllowor);
+            room[j].spawn(window);
+
+            worker[j].spawn(window);
+            worker[j].moveToRoom(Vector2f(100, 300), Vector2f(winWidth / 2, 0));
+            worker[j].desplaynumber(MouseFolllowor, click);
+
             WorkerMenu.drawMenu(window);
             BuildMenu.drawMenu(window);
             MinigameMenu.drawMenu(window);
         }
         #pragma endregion Gameloop
-        //menu.setIconText("dogs with drip.PNG",0,"dasdd");
+
+        #pragma region defineMouse
+        MouseFolllowor.setPosition(Mouse::getPosition().x - 475, Mouse::getPosition().y - 70);
+        MouseFolllowor.setRadius(10);
+        window.draw(MouseFolllowor);
+        #pragma endregion defineMouse
         window.display();
     }
     return 0;

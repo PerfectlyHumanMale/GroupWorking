@@ -91,7 +91,12 @@ public:
             }
         }
     }
-
+    Vector2f returnClick(CircleShape MouseFolllowor) {
+        if (Keyboard::isKeyPressed(Keyboard::O)&& MouseFolllowor.getPosition() == s.getPosition()) {
+            return MouseFolllowor.getPosition();
+            cout << "String. MouseFolllowor.getPosition();";
+        }
+    }
     String saveData() {
         String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2];
         return saveString;

@@ -24,14 +24,16 @@ class Workers {
     double intellegence;
     double endurence;
     double maxHealth = endurence * 3;
+    int workerNumber;
 
+    Event event;
     CircleShape s;
     String savedData[8];
 public:
     Workers() {
         s.setPosition(cargoLocation);
         s.setFillColor(Color::Red);
-        s.setRadius(10);
+        s.setRadius(20);
     }
     Vector2f getLocation() {
         return Location;
@@ -54,7 +56,7 @@ public:
         string saveEndurence(savedData[5]);
         string saveIntelegence(savedData[6]);
         string saveName(savedData[7]);
-        string::size_type sz;     // alias of size_t
+        string::size_type sz;
 
         Location.x = stod(saveX, &sz);
         Location.y = stod(saveY, &sz);
@@ -75,10 +77,10 @@ public:
     }
     void moveToRoom(Vector2f roomLocation, Vector2f cargoLocation) {
         if (Location.y == roomLocation.y && Location.x < roomLocation.x) {
-            Location.x += 100;
+            Location.x += 1;
         }
         else if (Location.y == roomLocation.y && Location.x > roomLocation.x) {
-            Location.x -= 100;
+            Location.x -= 1;
         }
         else if (Location.x == cargoLocation.x && Location.y < roomLocation.y) {
             Location.y += 1;
@@ -95,11 +97,14 @@ public:
     }
 
 int testOutput(Rooms room ) {
-        for (int i = 0; i < 100; i++) {
             if (room.getGlobalBounds().contains(room.getLocation())) {
                 return 1;
             }
-        }
     }
+void desplaynumber(CircleShape MouseFolllowor, bool click) {
+    if (s.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
+        cout << "clicked";
+    }
+}
 };
 #endif

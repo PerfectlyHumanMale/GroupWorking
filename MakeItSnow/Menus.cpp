@@ -69,6 +69,6 @@ public:
         }
     }
     void AsignMethods(int tab) {
-
+        
     }
 };
