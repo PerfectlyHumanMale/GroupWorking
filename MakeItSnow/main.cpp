@@ -28,7 +28,6 @@ Rooms CargoHold;
 RenderWindow window(sf::VideoMode(winWidth, winHeight), "Main");
 int i = 0;
 int workernumber;
-int roomnumber;
 #pragma endregion publicVerables 
 
 void gridview(RenderWindow& wind) {
@@ -118,6 +117,8 @@ int main()
             for (int j = 0; j < 100; j++) {
                 if (room[j].getLocation() == Vector2f(MouseFolllowor.getPosition().x - (x % 100), MouseFolllowor.getPosition().y - (y % 100))) {
                     here = false;
+                    LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
+                    workernumber = worker[j].desplaynumber(MouseFolllowor, click);
                 }/*
                 else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) -100, MouseFolllowor.getPosition().y - (y % 100)) || CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
                     here = false;
@@ -137,12 +138,13 @@ int main()
                 room[i].determinType(i % 3, CargoHold.getLocation().x);
                 cout << MouseFolllowor.getPosition().x << endl;
                 cout << MouseFolllowor.getPosition().y << endl;
-                worker[i].setRoom(room[i].getLocation());
-                worker[i].setLocation(Vector2f( 0, 0));
                 metal -= 10;
             }
-            room[i].setnumber(i);
-            //worker[i].setRoom();
+            worker[i].setnumber(i);
+            worker[workernumber].setRoom(LocationOfRoom);
+            worker[i].setLocation(CargoHold.getLocation());
+            cout << workernumber << endl;
+            cout << to_string( LocationOfRoom.x) + " " + to_string(LocationOfRoom.y) << endl;
             i++;
         }
         else if (event.type == Event::MouseButtonReleased) {
@@ -154,6 +156,7 @@ int main()
         for (int j = 0; j < 100; j++) {
             CargoHold.spawn(window);
 
+            LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
             room[j].returnClick(MouseFolllowor);
             room[j].spawn(window);
 

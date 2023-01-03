@@ -100,20 +100,18 @@ public:
         }
     }
 
-    int testOutput(Rooms room ) {
+    void testOutput(Rooms room ) {
             if (room.getGlobalBounds().contains(room.getLocation())) {
-                return 1;
+                cout << "l";
             }
         }
     void setnumber(int num) {
         workerNumber = num;
     }
-    int desplaynumber(CircleShape MouseFolllowor, bool click, int num) {
+    int desplaynumber(CircleShape MouseFolllowor, bool click) {
         if (s.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
-            //if (num == workerNumber) {
-                cout << "clicked ";
-                return workerNumber;
-            //}
+            cout << "clicked ";
+            return workerNumber;
         }
         return 0;
     }

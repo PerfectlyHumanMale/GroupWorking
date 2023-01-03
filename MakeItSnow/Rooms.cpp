@@ -100,7 +100,7 @@ public:
     }
     Vector2f desplayLocation(CircleShape MouseFolllowor, bool click) {
         if (s.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
-            cout << "clicked ";
+            //cout << "clicked ";
             return getLocation();
         }
     }
