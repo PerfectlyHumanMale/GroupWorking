@@ -17,7 +17,7 @@ class Workers {
     Texture Sprite;
 
     Vector2f cargoLocation;
-    Vector2f RoomLocation = cargoLocation;
+    Vector2f RoomLocation;
 
     String Name;
     double health;
@@ -100,8 +100,8 @@ public:
         }
     }
 
-    void testOutput(Rooms room ) {
-            if (room.getGlobalBounds().contains(room.getLocation())) {
+    void testOutput() {
+            if (s.getGlobalBounds().contains(RoomLocation)) {
                 cout << "l";
             }
         }

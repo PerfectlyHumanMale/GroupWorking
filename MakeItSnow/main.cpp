@@ -163,6 +163,7 @@ int main()
 
             worker[j].spawn(window);
             worker[j].moveToRoom(CargoHold.getLocation());
+            worker[j].testOutput();
             
             WorkerMenu.drawMenu(window);
             BuildMenu.drawMenu(window);
