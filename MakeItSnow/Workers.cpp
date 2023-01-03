@@ -17,7 +17,7 @@ class Workers {
     Texture Sprite;
 
     Vector2f cargoLocation;
-    Vector2f RoomLocation;
+    Vector2f RoomLocation = cargoLocation;
 
     String Name;
     double health;

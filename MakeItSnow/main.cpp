@@ -145,6 +145,7 @@ int main()
             worker[i].setLocation(CargoHold.getLocation());
             cout << workernumber << endl;
             cout << to_string( LocationOfRoom.x) + " " + to_string(LocationOfRoom.y) << endl;
+            cout << i << endl;
             i++;
         }
         else if (event.type == Event::MouseButtonReleased) {
