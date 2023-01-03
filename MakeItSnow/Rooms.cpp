@@ -11,7 +11,7 @@ class Rooms : public RectangleShape {
     Vector2f Location;
     Texture Sprite;
     
-    //Workers w[100];
+    int roomNumber;
     int oxagen = 10;
     int energy = 10;
     int food = 10;
@@ -31,10 +31,8 @@ public:
         wind.draw(s);
     }
     void setLocation(Vector2f spawnPoint) {
-        int x;
-        int y;
-        x = spawnPoint.x;
-        y = spawnPoint.y;
+        int x = spawnPoint.x;
+        int y = spawnPoint.y;
         Location = Vector2f(spawnPoint.x - (x % 100), spawnPoint.y - (y % 100));
     }
     Vector2f getLocation() {
@@ -92,9 +90,18 @@ public:
         }
     }
     Vector2f returnClick(CircleShape MouseFolllowor) {
-        if (Keyboard::isKeyPressed(Keyboard::O)&& MouseFolllowor.getPosition() == s.getPosition()) {
-            cout << "String. MouseFolllowor.getPosition();";
+        if (Keyboard::isKeyPressed(Keyboard::O) && s.getGlobalBounds().contains(MouseFolllowor.getPosition())) {
+            cout << to_string(roomNumber);
             return MouseFolllowor.getPosition();
+        }
+    }
+    void setnumber(int num) {
+        roomNumber = num;
+    }
+    Vector2f desplayLocation(CircleShape MouseFolllowor, bool click) {
+        if (s.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
+            cout << "clicked ";
+            return getLocation();
         }
     }
     String saveData() {

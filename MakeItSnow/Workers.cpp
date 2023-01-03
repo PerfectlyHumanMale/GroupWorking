@@ -100,22 +100,22 @@ public:
         }
     }
 
-int testOutput(Rooms room ) {
+    int testOutput(Rooms room ) {
             if (room.getGlobalBounds().contains(room.getLocation())) {
                 return 1;
             }
-    }
-void setnumber(int num) {
-    workerNumber = num;
-}
-int desplaynumber(CircleShape MouseFolllowor, bool click, int num) {
-    if (s.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
-        if (num == workerNumber) {
-            //cout << "clicked ";
-            return workerNumber;
         }
+    void setnumber(int num) {
+        workerNumber = num;
     }
-    return 0;
-}
+    int desplaynumber(CircleShape MouseFolllowor, bool click, int num) {
+        if (s.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
+            //if (num == workerNumber) {
+                cout << "clicked ";
+                return workerNumber;
+            //}
+        }
+        return 0;
+    }
 };
 #endif

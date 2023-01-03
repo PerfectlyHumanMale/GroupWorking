@@ -28,6 +28,7 @@ Rooms CargoHold;
 RenderWindow window(sf::VideoMode(winWidth, winHeight), "Main");
 int i = 0;
 int workernumber;
+int roomnumber;
 #pragma endregion publicVerables 
 
 void gridview(RenderWindow& wind) {
@@ -102,12 +103,8 @@ int main()
             gridview(window);
         }
         if (Keyboard::isKeyPressed(Keyboard::O)) {
-            //LocationOfRoom = MouseFolllowor.getPosition();
-            for (int i = 0; i < 100;i++) {
-                if (MouseFolllowor.getGlobalBounds().contains(room[i].getLocation())) {
-                    LocationOfRoom = room[i].getLocation();
-                }
-            }
+            LocationOfRoom = room[i].desplayLocation(MouseFolllowor, click);
+            //cout << to_string(i);
         }
         #pragma endregion buttonStuff
 
@@ -121,20 +118,31 @@ int main()
             for (int j = 0; j < 100; j++) {
                 if (room[j].getLocation() == Vector2f(MouseFolllowor.getPosition().x - (x % 100), MouseFolllowor.getPosition().y - (y % 100))) {
                     here = false;
+                }/*
+                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) -100, MouseFolllowor.getPosition().y - (y % 100)) || CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
+                    here = false;
                 }
+                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 200, MouseFolllowor.getPosition().y - (y % 100)) || CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 200, MouseFolllowor.getPosition().y - (y % 100))) {
+                    here = false;
+                }
+                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) - 100) || CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
+                    here = false;
+                }
+                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) + 200) || CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 200, MouseFolllowor.getPosition().y - (y % 100))) {
+                    here = false;
+                }*/
             }
             if (metal >= 10 && here == true) {
                 room[i].setLocation(MouseFolllowor.getPosition());
+                room[i].determinType(i % 3, CargoHold.getLocation().x);
                 cout << MouseFolllowor.getPosition().x << endl;
                 cout << MouseFolllowor.getPosition().y << endl;
-                room[i].determinType(i % 3, CargoHold.getLocation().x);
+                worker[i].setRoom(room[i].getLocation());
+                worker[i].setLocation(Vector2f( 0, 0));
                 metal -= 10;
             }
-            worker[i].setLocation(Vector2f(0, 0));
-            worker[i].setnumber(i);
-            worker[i].setRoom(room[i].getLocation());
+            room[i].setnumber(i);
             //worker[i].setRoom();
-            cout << worker[i].desplaynumber(MouseFolllowor,click, i);
             i++;
         }
         else if (event.type == Event::MouseButtonReleased) {
@@ -142,20 +150,16 @@ int main()
         }
         #pragma endregion RoomPlacement
 
-        worker[i].moveToRoom(CargoHold.getPosition());
         #pragma region Gameloop
         for (int j = 0; j < 100; j++) {
             CargoHold.spawn(window);
-            t += worker[j].testOutput(room[i]);
-            CargoHold.setFillColor(Color(t, t, t));
 
-            room[i].returnClick(MouseFolllowor);
+            room[j].returnClick(MouseFolllowor);
             room[j].spawn(window);
 
             worker[j].spawn(window);
             worker[j].moveToRoom(CargoHold.getLocation());
-            worker[j].desplaynumber(MouseFolllowor, click, workernumber);
-
+            
             WorkerMenu.drawMenu(window);
             BuildMenu.drawMenu(window);
             MinigameMenu.drawMenu(window);
