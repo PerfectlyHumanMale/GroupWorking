@@ -70,8 +70,8 @@ public:
     }
     int tabClick(CircleShape MouseFolllowor, bool click) {
         for (int i = 0; i < tabs.size();i++) {
-            if (tabs[i].getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
-                cout << "\n"<<i;
+            if (tabs[i].getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click && up) {
+                cout << "\n" << i;
                 int i;
             }
             else {

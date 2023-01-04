@@ -50,6 +50,7 @@ void gridview(RenderWindow& wind) {
 }
 #pragma region menuMethods
 void MinigameMethods(int num) {
+    //bring up the minigames
     switch (num) {
     case 0:
         break;
@@ -64,6 +65,7 @@ void MinigameMethods(int num) {
 void WorkerMenuMethods(int num) {
     switch (num) {
     case 0:
+        //spawn worker
         break;
     case 1:
         break;
@@ -76,12 +78,16 @@ void WorkerMenuMethods(int num) {
 void BuildMenuMethods(int num) {
     switch (num) {
     case 0:
+        //build elevater
         break;
     case 1:
+        //build generater
         break;
     case 2:
+        //build greenhouse
         break;
     case 3:
+        //
         break;
     }
 }
@@ -151,10 +157,10 @@ int main()
                     LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
                     workernumber = worker[j].desplaynumber(MouseFolllowor, click);
                 }/*
-                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) -100, MouseFolllowor.getPosition().y - (y % 100)) || CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
+                else if (CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100)) ||  room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) -100, MouseFolllowor.getPosition().y - (y % 100))) {
                     here = false;
                 }
-                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 200, MouseFolllowor.getPosition().y - (y % 100)) || CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 200, MouseFolllowor.getPosition().y - (y % 100))) {
+                else if (CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 200, MouseFolllowor.getPosition().y - (y % 100)) ||room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 200, MouseFolllowor.getPosition().y - (y % 100))) {
                     here = false;
                 }
                 else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) - 100) || CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
@@ -192,13 +198,14 @@ int main()
             room[j].returnClick(MouseFolllowor);
             room[j].spawn(window);
 
+            WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor, click));
+            BuildMenuMethods(BuildMenu.tabClick(MouseFolllowor, click));
+            MinigameMethods(MinigameMenu.tabClick(MouseFolllowor, click));
+
             worker[j].spawn(window);
             worker[j].moveToRoom(CargoHold.getLocation());
             worker[j].testOutput();
         }
-        WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor, click));
-        BuildMenuMethods(BuildMenu.tabClick(MouseFolllowor, click));
-        MinigameMethods(MinigameMenu.tabClick(MouseFolllowor, click));
 
         MinigameMenu.drawMenu(window);
         BuildMenu.drawMenu(window);
