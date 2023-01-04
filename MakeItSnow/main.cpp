@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp> 
 #include <sstream>
 #include <iostream>
+#include <fstream>
 #include "Rooms.cpp"
 #include "Workers.cpp"
 #include "Menus.cpp"
@@ -48,14 +49,44 @@ void gridview(RenderWindow& wind) {
     }
 }
 #pragma region menuMethods
-void CreatWorker(bool on) {
-    
+void MinigameMethods(int num) {
+    switch (num) {
+    case 0:
+        break;
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    }
 }
-void BuildRoom(bool on, int type) {
-
+void WorkerMenuMethods(int num) {
+    switch (num) {
+    case 0:
+        break;
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    }
 }
-void OpenGame(bool on, int gamenumber) {
-
+void BuildMenuMethods(int num) {
+    switch (num) {
+    case 0:
+        break;
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    }
+}
+void createFile(string fileName) {
+    ofstream MyWriteFile(fileName+".txt");
 }
 #pragma endregion menuMethods
 
@@ -145,7 +176,7 @@ int main()
             worker[i].setLocation(CargoHold.getLocation());
             cout << workernumber << endl;
             cout << to_string( LocationOfRoom.x) + " " + to_string(LocationOfRoom.y) << endl;
-            cout << i << endl;
+            //cout << i << endl;
             i++;
         }
         else if (event.type == Event::MouseButtonReleased) {
@@ -164,11 +195,14 @@ int main()
             worker[j].spawn(window);
             worker[j].moveToRoom(CargoHold.getLocation());
             worker[j].testOutput();
-            
-            WorkerMenu.drawMenu(window);
-            BuildMenu.drawMenu(window);
-            MinigameMenu.drawMenu(window);
         }
+        WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor, click));
+        BuildMenuMethods(BuildMenu.tabClick(MouseFolllowor, click));
+        MinigameMethods(MinigameMenu.tabClick(MouseFolllowor, click));
+
+        MinigameMenu.drawMenu(window);
+        BuildMenu.drawMenu(window);
+        WorkerMenu.drawMenu(window);
         #pragma endregion Gameloop
 
         #pragma region defineMouse

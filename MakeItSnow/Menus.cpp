@@ -68,7 +68,18 @@ public:
             }
         }
     }
+    int tabClick(CircleShape MouseFolllowor, bool click) {
+        for (int i = 0; i < tabs.size();i++) {
+            if (tabs[i].getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
+                cout << "\n"<<i;
+                int i;
+            }
+            else {
+                int i;
+            }
+        }
+        return 0;
+    }
     void AsignMethods(int tab) {
-        
     }
 };
