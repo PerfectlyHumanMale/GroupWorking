@@ -80,6 +80,4 @@ public:
         }
         return 0;
     }
-    void AsignMethods(int tab) {
-    }
 };

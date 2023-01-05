@@ -9,6 +9,10 @@ using namespace sf;
 using namespace std;
 class Rooms : public RectangleShape {
     Vector2f Location;
+    Vector2f rightzone;
+    Vector2f leftzone;
+    Vector2f upzone;
+    Vector2f downzone;
     Texture Sprite;
     
     int roomNumber;

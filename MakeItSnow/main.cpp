@@ -147,28 +147,29 @@ int main()
         #pragma region RoomPlacement
         if (event.type == Event::MouseButtonPressed && click) {
             click = false;
-            bool here = true;
+            bool here = false;
             int x = MouseFolllowor.getPosition().x;
             int y = MouseFolllowor.getPosition().y;
-            //aviods double placing
+
             for (int j = 0; j < 100; j++) {
                 if (room[j].getLocation() == Vector2f(MouseFolllowor.getPosition().x - (x % 100), MouseFolllowor.getPosition().y - (y % 100))) {
                     here = false;
                     LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
                     workernumber = worker[j].desplaynumber(MouseFolllowor, click);
-                }/*
-                else if (CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100)) ||  room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) -100, MouseFolllowor.getPosition().y - (y % 100))) {
-                    here = false;
                 }
-                else if (CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 200, MouseFolllowor.getPosition().y - (y % 100)) ||room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 200, MouseFolllowor.getPosition().y - (y % 100))) {
-                    here = false;
+                else if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100)) || room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) -100, MouseFolllowor.getPosition().y - (y % 100))) {
+                    here = true;
+                    cout << "p";
                 }
-                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) - 100) || CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
-                    here = false;
+                else if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100)) ||room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100))) {
+                    here = true;
                 }
-                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) + 200) || CargoHold.getLocation() != Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 200, MouseFolllowor.getPosition().y - (y % 100))) {
-                    here = false;
-                }*/
+                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) - 100) || CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
+                    here = true;
+                }
+                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) + 100) || CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100))) {
+                    here = true;
+                }
             }
             if (metal >= 10 && here == true) {
                 room[i].setLocation(MouseFolllowor.getPosition());
