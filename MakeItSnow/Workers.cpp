@@ -12,10 +12,9 @@ using namespace std;
 
 class Workers {
     String savedX, savedY;
-    Vector2f Location;
-    Vector2f Velocity;
     Texture Sprite;
 
+    Vector2f Location = Vector2f(100,100);
     Vector2f cargoLocation;
     Vector2f RoomLocation;
 
@@ -29,15 +28,15 @@ class Workers {
 
     Event event;
     CircleShape s;
-    String savedData[8];
+    String savedData[9];
 public:
     Workers() {
         s.setPosition(cargoLocation);
         s.setFillColor(Color::Red);
         s.setRadius(20);
     }
-    Vector2f getLocation() {
-        return Location;
+    void getLocation() {
+        Location = s.getPosition();
     }
     void getCargoLocation(Vector2f v) {
         cargoLocation = v;
@@ -48,27 +47,6 @@ public:
     }
     void setLocation(Vector2f spawnPoint) {
         Location = spawnPoint;
-    }
-    void loadFile(Vector2f LocationPoint) {
-        string saveX(savedData[1]);
-        string saveY(savedData[2]);
-        string saveHealth(savedData[3]);
-        string saveStrength(savedData[4]);
-        string saveEndurence(savedData[5]);
-        string saveIntelegence(savedData[6]);
-        string saveName(savedData[7]);
-        string::size_type sz;
-
-        Location.x = stod(saveX, &sz);
-        Location.y = stod(saveY, &sz);
-        health = stod(saveHealth, &sz);
-        strength = stod(saveStrength, &sz);
-        endurence = stod(saveEndurence, &sz);
-        intellegence = stod(saveIntelegence, &sz);
-        Name = savedData[0];
-    }
-    void saveData() {
-        String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2] + " | " + savedData[3] + " | " + savedData[4] + " | " + savedData[5] + " | " + savedData[6] + " | " + savedData[7];
     }
     void createWorker(int id) {
         Name = "Name: " + id;
@@ -114,6 +92,39 @@ public:
             return workerNumber;
         }
         return 0;
+    }
+
+    void loadFile(Vector2f LocationPoint) {
+        string saveNumber(savedData[0]);
+        string saveX(savedData[1]);
+        string saveY(savedData[2]);
+        string saveHealth(savedData[3]);
+        string saveStrength(savedData[4]);
+        string saveEndurence(savedData[5]);
+        string saveIntelegence(savedData[6]);
+        string::size_type sz;
+
+        Location.x = stod(saveX, &sz);
+        Location.y = stod(saveY, &sz);
+        health = stod(saveHealth, &sz);
+        strength = stod(saveStrength, &sz);
+        endurence = stod(saveEndurence, &sz);
+        intellegence = stod(saveIntelegence, &sz);
+        workerNumber = stod(saveNumber, &sz);
+    }
+    String saveTheData() {
+        savedData[0] = to_string(workerNumber);
+        savedData[1] = to_string(Location.x);
+        savedData[2] = to_string(Location.y);
+        savedData[3] = to_string(health);
+        savedData[4] = to_string(strength);
+        savedData[5] = to_string(endurence);
+        savedData[6] = to_string(intellegence);
+        savedData[7] = to_string(RoomLocation.x);
+        savedData[8] = to_string(RoomLocation.y);
+
+        String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2] + " | " + savedData[3] + " | " + savedData[4] + " | " + savedData[5] + " | " + savedData[6] + " | " + savedData[7] + " | " + savedData[8];
+        return saveString;
     }
 };
 #endif

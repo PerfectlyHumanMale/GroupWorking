@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "Rooms.cpp"
 #include "Workers.cpp"
 #include "Menus.cpp"
@@ -13,22 +14,31 @@ using namespace std;
 #pragma region publicVerables 
 CircleShape MouseFolllowor;
 Vector2f LocationOfRoom;
+
 #define winWidth 1100
 #define winHeight 1000
+
 Menus MinigameMenu;
 Menus WorkerMenu;
 Menus BuildMenu;
+
 int metal = 11;
 int t = 0;
+int i = 0;
+int workernumber;
+
 bool paused = false;
 bool buildup = false;
 bool click = true;
+
 Rooms room[100];
 Workers worker[100];
 Rooms CargoHold;
+
 RenderWindow window(sf::VideoMode(winWidth, winHeight), "Main");
-int i = 0;
-int workernumber;
+
+string roomData[100];
+string workerData[100];
 #pragma endregion publicVerables 
 
 void gridview(RenderWindow& wind) {
@@ -48,6 +58,28 @@ void gridview(RenderWindow& wind) {
         wind.draw(v.back());
     }
 }
+
+void saveStuff(int numberOfRooms, int numberOfWorkers) {
+    ofstream MyWriteFile("TestFile.txt");
+
+    MyWriteFile << "\n" << "Rooms" << "\n";
+    for (int i = 0; i < numberOfRooms; i++) {
+        MyWriteFile << roomData[i]<<"\n";
+    }
+    MyWriteFile << "\n" << "Workers" << "\n";
+    for (int i = 0; i < numberOfRooms; i++) {
+        MyWriteFile << workerData[i] << "\n";
+    }
+    MyWriteFile.close();
+}
+void loadstuff() {
+    ifstream MyReadFile("TestFile.txt");
+
+
+    // Close the file
+    MyReadFile.close();
+}
+
 #pragma region menuMethods
 void MinigameMethods(int num) {
     //bring up the minigames
@@ -140,7 +172,9 @@ int main()
         }
         if (Keyboard::isKeyPressed(Keyboard::O)) {
             LocationOfRoom = room[i].desplayLocation(MouseFolllowor, click);
-            //cout << to_string(i);
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Q)) {
+            saveStuff(i, i);
         }
         #pragma endregion buttonStuff
 
@@ -156,7 +190,6 @@ int main()
                 
                 if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100)) || room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) -100, MouseFolllowor.getPosition().y - (y % 100))) {
                     here = true;
-                    cout << "p";
                 }
                 else if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100)) ||room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100))) {
                     here = true;
@@ -201,14 +234,18 @@ int main()
             LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
             room[j].returnClick(MouseFolllowor);
             room[j].spawn(window);
+            roomData[j] = room[j].saveData();
 
             WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor, click));
             BuildMenuMethods(BuildMenu.tabClick(MouseFolllowor, click));
             MinigameMethods(MinigameMenu.tabClick(MouseFolllowor, click));
 
             worker[j].spawn(window);
+            worker[j].setRoom(Vector2f(1000, 100));
             worker[j].moveToRoom(CargoHold.getLocation());
             worker[j].testOutput();
+            //worker[j].getLocation();
+            workerData[j] = worker[i].saveTheData();
         }
 
         MinigameMenu.drawMenu(window);

@@ -4,15 +4,13 @@
 #include <SFML/Graphics.hpp> 
 #include <sstream>
 #include <iostream>
+#include <fstream>
+#include <string>
 
 using namespace sf;
 using namespace std;
 class Rooms : public RectangleShape {
     Vector2f Location;
-    Vector2f rightzone;
-    Vector2f leftzone;
-    Vector2f upzone;
-    Vector2f downzone;
     Texture Sprite;
     
     int roomNumber;
@@ -34,26 +32,10 @@ public:
         s.setPosition(Location);
         wind.draw(s);
     }
-    void setLocation(Vector2f spawnPoint) {
-        int x = spawnPoint.x;
-        int y = spawnPoint.y;
-        Location = Vector2f(spawnPoint.x - (x % 100), spawnPoint.y - (y % 100));
-    }
     Vector2f getLocation() {
         return Location;
     }
 
-    void loadFile(Vector2f LocationPoint) {
-        string saveX(savedData[0]);
-        string saveY(savedData[1]);
-        string saveType(savedData[2]);
-        string::size_type sz;     // alias of size_t
-
-        Location.x = stod(saveX, &sz);
-        Location.y = stod(saveY, &sz);
-
-        Type = stod(saveType, &sz);
-    }
     void CalulateOutput() {
         int workers;
         switch (Type) {
@@ -109,8 +91,28 @@ public:
         }
     }
     String saveData() {
+        savedData[0] = to_string(Location.x);
+        savedData[1] = to_string(Location.y);
+        savedData[2] = to_string(Type);
+
         String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2];
         return saveString;
+    }
+    void loadFile(Vector2f LocationPoint) {
+        string saveX(savedData[0]);
+        string saveY(savedData[1]);
+        string saveType(savedData[2]);
+        string::size_type sz;     // alias of size_t
+
+        Location.x = stod(saveX, &sz);
+        Location.y = stod(saveY, &sz);
+
+        Type = stod(saveType, &sz);
+    }
+    void setLocation(Vector2f spawnPoint) {
+        int x = spawnPoint.x;
+        int y = spawnPoint.y;
+        Location = Vector2f(spawnPoint.x - (x % 100), spawnPoint.y - (y % 100));
     }
 };
 #endif
