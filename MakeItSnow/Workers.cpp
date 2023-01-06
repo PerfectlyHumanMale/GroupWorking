@@ -35,9 +35,6 @@ public:
         s.setFillColor(Color::Red);
         s.setRadius(20);
     }
-    void getLocation() {
-        Location = s.getPosition();
-    }
     void getCargoLocation(Vector2f v) {
         cargoLocation = v;
     }

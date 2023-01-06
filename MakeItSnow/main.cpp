@@ -74,10 +74,29 @@ void saveStuff(int numberOfRooms, int numberOfWorkers) {
 }
 void loadstuff() {
     ifstream MyReadFile("TestFile.txt");
+    string stuff[250];
+    string h;
+    string o;
+    int lines = 0;
+    int i = 0;
+    while (getline(MyReadFile, h)) {
+        
+        if (h.find('|') == 8) {
+            workerData[i] = h;
+            cout << workerData[i] << endl;
+        }else if (h.find('|') > 1) {
+            //roomData[i] = h;
+            //cout << roomData[i] << endl;
+        }
+        i++;
+    }
+    for (int i = 0; i < 100; i++) {
 
+    }
+    for (int i = 0; i < 100; i++) {
 
-    // Close the file
-    MyReadFile.close();
+    }
+    cout << o << endl;
 }
 
 #pragma region menuMethods
@@ -176,6 +195,10 @@ int main()
         if (Keyboard::isKeyPressed(Keyboard::Q)) {
             saveStuff(i, i);
         }
+
+        if (Keyboard::isKeyPressed(Keyboard::A)) {
+            loadstuff();
+        }
         #pragma endregion buttonStuff
 
         #pragma region RoomPlacement
@@ -241,10 +264,8 @@ int main()
             MinigameMethods(MinigameMenu.tabClick(MouseFolllowor, click));
 
             worker[j].spawn(window);
-            worker[j].setRoom(Vector2f(1000, 100));
             worker[j].moveToRoom(CargoHold.getLocation());
             worker[j].testOutput();
-            //worker[j].getLocation();
             workerData[j] = worker[i].saveTheData();
         }
 
