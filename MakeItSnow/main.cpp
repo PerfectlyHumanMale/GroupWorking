@@ -60,43 +60,45 @@ void gridview(RenderWindow& wind) {
 }
 
 void saveStuff(int numberOfRooms, int numberOfWorkers) {
-    ofstream MyWriteFile("TestFile.txt");
+    ofstream MyWorkerWriteFile("WorkerFile.txt");
+    ofstream MyRoomWriteFile("RoomFile.txt");
 
-    MyWriteFile << "\n" << "Rooms" << "\n";
+    /*for (int i = 0; i < numberOfWorkers; i++) {
+        MyWorkerWriteFile << workerData[i] <<"\n";
+    }*/
+    MyWorkerWriteFile.close();
+    string ds;
     for (int i = 0; i < numberOfRooms; i++) {
-        MyWriteFile << roomData[i]<<"\n";
+        ds = room[i].saveData();
+        MyRoomWriteFile << ds << "\n";
+        cout << ds;
     }
-    MyWriteFile << "\n" << "Workers" << "\n";
-    for (int i = 0; i < numberOfRooms; i++) {
-        MyWriteFile << workerData[i] << "\n";
-    }
-    MyWriteFile.close();
+    MyRoomWriteFile.close();
 }
 void loadstuff() {
-    ifstream MyReadFile("TestFile.txt");
-    string stuff[250];
+    ifstream MyWorkerReadFile("WorkerFile.txt");
+    ifstream MyRoomReadFile("RoomFile.txt");
     string h;
-    string o;
-    int lines = 0;
     int i = 0;
-    while (getline(MyReadFile, h)) {
-        
-        if (h.find('|') == 8) {
-            workerData[i] = h;
-            cout << workerData[i] << endl;
-        }else if (h.find('|') > 1) {
-            //roomData[i] = h;
-            //cout << roomData[i] << endl;
-        }
+    bool whichline = true;
+    /*while (getline(MyWorkerReadFile, h)) {
+        workerData[i] = h;
+        i++;
+    }*/
+    i = 0;
+    while (getline(MyRoomReadFile, h)) {
+        roomData[i] = h;
+        room[i].loadFile(roomData[i]);
+        room[i].spawn(window);
         i++;
     }
-    for (int i = 0; i < 100; i++) {
-
+    cout << i;
+    for (int j = 0; j < 100; j++) {
+        cout << roomData[i] << endl;
+        cout << workerData[i] << endl;
     }
-    for (int i = 0; i < 100; i++) {
 
-    }
-    cout << o << endl;
+    //cout << "sdgfsdg";
 }
 
 #pragma region menuMethods

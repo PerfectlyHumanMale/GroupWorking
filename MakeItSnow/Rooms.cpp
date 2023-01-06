@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 
 using namespace sf;
 using namespace std;
@@ -21,7 +22,7 @@ class Rooms : public RectangleShape {
     int Type;//Types are Green House = 1, Genarater = 2, Kitchen = 3, Elevater = 4
 
     RectangleShape s;
-    String savedData[5];
+    vector <String> savedData;
 public:
     Rooms() {
         s.setFillColor(Color::Green);
@@ -90,23 +91,51 @@ public:
             return getLocation();
         }
     }
-    String saveData() {
-        savedData[0] = to_string(Location.x);
-        savedData[1] = to_string(Location.y);
-        savedData[2] = to_string(Type);
+    String saveData() { 
+        savedData.push_back(to_string(s.getPosition().x));
+        savedData.push_back( to_string(s.getPosition().y));
+        savedData.push_back( to_string(Type));
 
         String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2];
         return saveString;
     }
-    void loadFile(Vector2f LocationPoint) {
+    int len(string str)
+    {
+        int length = 0;
+        for (int i = 0; str[i] != '\0'; i++)
+        {
+            length++;
+
+        }
+        return length;
+    }
+
+    void loadFile(string loadedData) {
+        string strings[100];
+        int currIndex = 0, i = 0;
+        int startIndex = 0, endIndex = 0;
+        vector <string> so;
+        while (i <= len(loadedData))
+        {
+            if (loadedData[i] == '|' || i == len(loadedData))
+            {
+                endIndex = i;
+                string subStr = "";
+                subStr.append(loadedData, startIndex, endIndex - startIndex);
+                strings[currIndex] = subStr;
+                currIndex += 1;
+                startIndex = endIndex + 1;
+                savedData[i] = subStr;
+            }
+            i++;
+        }
+
         string saveX(savedData[0]);
         string saveY(savedData[1]);
         string saveType(savedData[2]);
-        string::size_type sz;     // alias of size_t
+        string::size_type sz;
 
-        Location.x = stod(saveX, &sz);
-        Location.y = stod(saveY, &sz);
-
+        s.setPosition(stod(saveX, &sz), stod(saveY, &sz));
         Type = stod(saveType, &sz);
     }
     void setLocation(Vector2f spawnPoint) {
