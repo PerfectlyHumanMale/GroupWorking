@@ -68,10 +68,9 @@ void saveStuff(int numberOfRooms, int numberOfWorkers) {
     }*/
     MyWorkerWriteFile.close();
     string ds;
-    for (int i = 0; i < numberOfRooms; i++) {
-        ds = room[i].saveData();
+    for (int j = 0; j < numberOfRooms; j++) {
+        ds = room[j].saveData();
         MyRoomWriteFile << ds << "\n";
-        cout << ds;
     }
     MyRoomWriteFile.close();
 }
@@ -85,7 +84,6 @@ void loadstuff() {
         workerData[i] = h;
         i++;
     }*/
-    i = 0;
     while (getline(MyRoomReadFile, h)) {
         roomData[i] = h;
         room[i].loadFile(roomData[i]);
@@ -94,8 +92,8 @@ void loadstuff() {
     }
     cout << i;
     for (int j = 0; j < 100; j++) {
-        cout << roomData[i] << endl;
-        cout << workerData[i] << endl;
+        cout << roomData[j] << endl;
+        cout << workerData[j] << endl;
     }
 
     //cout << "sdgfsdg";

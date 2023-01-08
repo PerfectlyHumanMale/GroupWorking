@@ -22,7 +22,8 @@ class Rooms : public RectangleShape {
     int Type;//Types are Green House = 1, Genarater = 2, Kitchen = 3, Elevater = 4
 
     RectangleShape s;
-    vector <String> savedData;
+    //vector <string> savedData;
+    string savedData[4];
 public:
     Rooms() {
         s.setFillColor(Color::Green);
@@ -92,9 +93,12 @@ public:
         }
     }
     String saveData() { 
-        savedData.push_back(to_string(s.getPosition().x));
-        savedData.push_back( to_string(s.getPosition().y));
-        savedData.push_back( to_string(Type));
+        savedData[0] = to_string( s.getPosition().x);
+        savedData[1] = to_string( s.getPosition().y);
+        savedData[2] = to_string( Type);
+        //savedData.push_back(to_string(Location.x));
+        //savedData.push_back( to_string(Location.y));
+        //savedData.push_back( to_string(Type));
 
         String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2];
         return saveString;
@@ -105,7 +109,6 @@ public:
         for (int i = 0; str[i] != '\0'; i++)
         {
             length++;
-
         }
         return length;
     }
