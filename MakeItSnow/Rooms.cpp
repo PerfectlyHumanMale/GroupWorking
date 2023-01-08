@@ -103,37 +103,21 @@ public:
         String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2];
         return saveString;
     }
-    int len(string str)
-    {
-        int length = 0;
-        for (int i = 0; str[i] != '\0'; i++)
-        {
-            length++;
-        }
-        return length;
-    }
-
     void loadFile(string loadedData) {
-        string strings[100];
-        int currIndex = 0, i = 0;
-        int startIndex = 0, endIndex = 0;
-        vector <string> so;
-        while (i <= len(loadedData))
-        {
-            if (loadedData[i] == '|' || i == len(loadedData))
-            {
-                endIndex = i;
-                string subStr = "";
-                subStr.append(loadedData, startIndex, endIndex - startIndex);
-                strings[currIndex] = subStr;
-                currIndex += 1;
-                startIndex = endIndex + 1;
-                savedData[i] = subStr;
-            }
-            i++;
+        string st;
+        stringstream ss(loadedData);
+
+        vector<string> v;
+
+        while (getline(ss, st, '|')) {
+            v.push_back(st);
         }
 
-        string saveX(savedData[0]);
+        for (int i = 0; i < 3; i++) {
+            savedData[i] = st;
+        }
+
+        string saveX( savedData[0]);
         string saveY(savedData[1]);
         string saveType(savedData[2]);
         string::size_type sz;

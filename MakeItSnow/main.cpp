@@ -71,6 +71,7 @@ void saveStuff(int numberOfRooms, int numberOfWorkers) {
     for (int j = 0; j < numberOfRooms; j++) {
         ds = room[j].saveData();
         MyRoomWriteFile << ds << "\n";
+        cout << ds << endl;
     }
     MyRoomWriteFile.close();
 }
@@ -78,25 +79,19 @@ void loadstuff() {
     ifstream MyWorkerReadFile("WorkerFile.txt");
     ifstream MyRoomReadFile("RoomFile.txt");
     string h;
-    int i = 0;
+    int num = 0;
     bool whichline = true;
     /*while (getline(MyWorkerReadFile, h)) {
         workerData[i] = h;
         i++;
     }*/
     while (getline(MyRoomReadFile, h)) {
-        roomData[i] = h;
-        room[i].loadFile(roomData[i]);
-        room[i].spawn(window);
-        i++;
+        roomData[num] = h;
+        room[num].loadFile(h);
+        room[num].spawn(window);
+        cout << h << endl;
+        num++;
     }
-    cout << i;
-    for (int j = 0; j < 100; j++) {
-        cout << roomData[j] << endl;
-        cout << workerData[j] << endl;
-    }
-
-    //cout << "sdgfsdg";
 }
 
 #pragma region menuMethods
