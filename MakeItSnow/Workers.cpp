@@ -42,6 +42,9 @@ public:
         s.setPosition(Location);
         wind.draw(s);
     }
+    Vector2f getLocation() {
+        return Location;
+    }
     void setLocation(Vector2f spawnPoint) {
         Location = spawnPoint;
     }
@@ -75,9 +78,9 @@ public:
         }
     }
 
-    void testOutput() {
+    int Output() {
             if (s.getGlobalBounds().contains(RoomLocation)) {
-                cout << "l";
+                return 1;
             }
         }
     void setnumber(int num) {

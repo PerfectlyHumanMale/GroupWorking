@@ -37,6 +37,29 @@ Rooms CargoHold;
 
 RenderWindow window(sf::VideoMode(winWidth, winHeight), "Main");
 
+float currentOxygen = 50;
+float totalOxygen = 50 + i * 20;
+
+RectangleShape outObar;
+RectangleShape innerObar;
+
+float currentHunger = 50;
+float totalHunger = 50 + i * 20;
+
+RectangleShape outHbar;
+RectangleShape innerHbar;
+
+float hungerPercentage = ((float)currentHunger / (float)totalHunger) * 100;
+
+float currentPower = 50;
+float totalPower = 50 + i * 20;
+
+RectangleShape outPbar;
+RectangleShape innerPbar;
+
+float powerPercentage = ((float)currentPower / (float)totalPower) * 100;
+float oxygenPercentage = ((float)currentOxygen / (float)totalOxygen) * 100;
+
 string roomData[100];
 string workerData[100];
 #pragma endregion publicVerables 
@@ -59,9 +82,16 @@ void gridview(RenderWindow& wind) {
     }
 }
 
-void saveStuff(int numberOfRooms, int numberOfWorkers) {
+void saveStuff(int numberOfRooms, int numberOfWorkers, int ox, int hunger, int power) {
     ofstream MyWorkerWriteFile("WorkerFile.txt");
     ofstream MyRoomWriteFile("RoomFile.txt");
+    ofstream MyReasourseWriteFile("ResourseFile.txt");
+
+    MyReasourseWriteFile << ox << "\n";
+    MyReasourseWriteFile << hunger << "\n";
+    MyReasourseWriteFile << power << "\n";
+    MyReasourseWriteFile.close();
+
     string ah;
 
     for (int j = 0; j < numberOfWorkers; j++) {
@@ -79,18 +109,26 @@ void saveStuff(int numberOfRooms, int numberOfWorkers) {
 void loadstuff() {
     ifstream MyWorkerReadFile("WorkerFile.txt");
     ifstream MyRoomReadFile("RoomFile.txt");
+    ifstream MyResoursesReadFile("ResourseFile.txt");
+
     string h;
     string n;
+    string l;
+    int resoursesArray[3];
     int roomNum = 0;
     int workerNum = 0;
+    int ResourseNum = 0;
     while (getline(MyWorkerReadFile, h)) {
         worker[workerNum].loadFile(h,window);
         workerNum++;
     }
     while (getline(MyRoomReadFile, n)) {
         room[roomNum].loadFile(n,window);
-        cout << n << endl;
         roomNum++;
+    }
+    while (getline(MyResoursesReadFile, l)) {
+        resoursesArray[ResourseNum] = stoi(l);
+        ResourseNum++;
     }
     i += roomNum;
 }
@@ -177,6 +215,42 @@ int main()
         window.clear(Color::Black);
        #pragma endregion houseKeeping
 
+        #pragma region bars 
+        totalOxygen = 50 + i * 20;
+        totalHunger = 50 + i * 20;
+        totalPower = 50 + i * 20;
+
+        outHbar.setOutlineColor(Color(255, 255, 255));
+        outHbar.setOutlineThickness(2);
+        outHbar.setSize(Vector2f(100, 40));
+        outHbar.setPosition(Vector2f(10, 10));
+        outHbar.setFillColor(Color::Black);
+
+        innerHbar.setPosition(Vector2f(10, 10));
+        innerHbar.setFillColor(Color::Red);
+        innerHbar.setSize(Vector2f(currentHunger, 40));
+
+        outPbar.setOutlineColor(Color(255, 255, 255));
+        outPbar.setOutlineThickness(2);
+        outPbar.setSize(Vector2f(100, 40));
+        outPbar.setPosition(Vector2f(10, 60));
+        outPbar.setFillColor(Color::Black);
+
+        innerPbar.setFillColor(Color::Yellow);
+        innerPbar.setSize(Vector2f(currentPower, 40));
+        innerPbar.setPosition(Vector2f(10, 60));
+
+        outObar.setOutlineColor(Color(255, 255, 255));
+        outObar.setOutlineThickness(2);
+        outObar.setSize(Vector2f(100, 40));
+        outObar.setPosition(Vector2f(10, 110));
+        outObar.setFillColor(Color::Black);
+
+        innerObar.setFillColor(Color::Green);
+        innerObar.setSize(Vector2f(currentOxygen, 40));
+        innerObar.setPosition(Vector2f(10, 110));
+        #pragma endregion bars 
+
         #pragma region buttonStuff
         if (Keyboard::isKeyPressed(Keyboard::H)) {
             metal += 10;
@@ -189,7 +263,7 @@ int main()
             LocationOfRoom = room[i].desplayLocation(MouseFolllowor, click);
         }
         if (Keyboard::isKeyPressed(Keyboard::Q)) {
-            saveStuff(i, i);
+            saveStuff(i, i, currentOxygen, currentHunger, currentPower);
         }
 
         if (Keyboard::isKeyPressed(Keyboard::A)) {
@@ -247,23 +321,42 @@ int main()
         #pragma endregion RoomPlacement
 
         #pragma region Gameloop
+
         for (int j = 0; j < 100; j++) {
             CargoHold.spawn(window);
 
             LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
             room[j].returnClick(MouseFolllowor);
             room[j].spawn(window);
-            roomData[j] = room[j].saveData();
-
+            switch (room[i].getType()) {
+            case 0:
+                currentOxygen += room[j].Output(worker);
+                break;
+            case 1:
+                currentPower += room[j].Output(worker);
+                break;
+            case 2:
+                currentHunger += room[j].Output(worker);
+                break;
+            }
+            
             WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor, click));
             BuildMenuMethods(BuildMenu.tabClick(MouseFolllowor, click));
             MinigameMethods(MinigameMenu.tabClick(MouseFolllowor, click));
 
             worker[j].spawn(window);
             worker[j].moveToRoom(CargoHold.getLocation());
-            worker[j].testOutput();
-            workerData[j] = worker[i].saveTheData();
+            worker[j].Output();
+            workerData[j] = worker[j].saveTheData();
         }
+
+        window.draw(outObar);
+        window.draw(innerObar);
+        window.draw(outPbar);
+        window.draw(innerPbar);
+        window.draw(outHbar);
+        window.draw(innerHbar);
+
 
         MinigameMenu.drawMenu(window);
         BuildMenu.drawMenu(window);

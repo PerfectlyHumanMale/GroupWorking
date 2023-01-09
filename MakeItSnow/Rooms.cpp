@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <cstring>
+#include "Workers.cpp"
 
 using namespace sf;
 using namespace std;
@@ -76,6 +77,17 @@ public:
                 break;
             }
         }
+    }
+
+    int Output(Workers workers[100]) {
+        for (int i = 0; i < 100; ) {
+            if (s.getGlobalBounds().contains(workers[i].getLocation())) {
+                return 1;
+            }
+        }
+    }
+    int getType() {
+        return Type;
     }
     Vector2f returnClick(CircleShape MouseFolllowor) {
         if (Keyboard::isKeyPressed(Keyboard::O) && s.getGlobalBounds().contains(MouseFolllowor.getPosition())) {
