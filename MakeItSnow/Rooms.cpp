@@ -96,14 +96,11 @@ public:
         savedData[0] = to_string( s.getPosition().x);
         savedData[1] = to_string( s.getPosition().y);
         savedData[2] = to_string( Type);
-        //savedData.push_back(to_string(Location.x));
-        //savedData.push_back( to_string(Location.y));
-        //savedData.push_back( to_string(Type));
 
         String saveString = savedData[0] + " | " + savedData[1] + " | " + savedData[2];
         return saveString;
     }
-    void loadFile(string loadedData) {
+    void loadFile(string loadedData, RenderWindow& window) {
         string st;
         stringstream ss(loadedData);
 
@@ -113,17 +110,15 @@ public:
             v.push_back(st);
         }
 
-        for (int i = 0; i < 3; i++) {
-            savedData[i] = st;
-        }
-
-        string saveX( savedData[0]);
-        string saveY(savedData[1]);
-        string saveType(savedData[2]);
+        string saveX( v[0]);
+        string saveY(v[1]);
+        string saveType(v[2]);
         string::size_type sz;
-
-        s.setPosition(stod(saveX, &sz), stod(saveY, &sz));
-        Type = stod(saveType, &sz);
+        setLocation(Vector2f( stof(saveX, &sz), stof(saveY, &sz)));
+        determinType(stoi(saveType, &sz), window.getSize().x/2);
+        
+        //Type = stoi(saveType, &sz);
+        window.draw(s);
     }
     void setLocation(Vector2f spawnPoint) {
         int x = spawnPoint.x;

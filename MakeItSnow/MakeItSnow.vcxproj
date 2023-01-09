@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menus.cpp" />
     <ClCompile Include="Rooms.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="Workers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collision.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

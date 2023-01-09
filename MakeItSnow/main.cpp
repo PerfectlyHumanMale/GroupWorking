@@ -80,18 +80,18 @@ void loadstuff() {
     ifstream MyRoomReadFile("RoomFile.txt");
     string h;
     int num = 0;
-    bool whichline = true;
     /*while (getline(MyWorkerReadFile, h)) {
         workerData[i] = h;
         i++;
     }*/
     while (getline(MyRoomReadFile, h)) {
         roomData[num] = h;
-        room[num].loadFile(h);
-        room[num].spawn(window);
+        room[num].loadFile(h,window);
+        //room[num].spawn(window);
         cout << h << endl;
         num++;
     }
+    i += num;
 }
 
 #pragma region menuMethods
