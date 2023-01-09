@@ -62,10 +62,11 @@ void gridview(RenderWindow& wind) {
 void saveStuff(int numberOfRooms, int numberOfWorkers) {
     ofstream MyWorkerWriteFile("WorkerFile.txt");
     ofstream MyRoomWriteFile("RoomFile.txt");
+    string ah;
 
-    /*for (int i = 0; i < numberOfWorkers; i++) {
-        MyWorkerWriteFile << workerData[i] <<"\n";
-    }*/
+    for (int j = 0; j < numberOfWorkers; j++) {
+        MyWorkerWriteFile << workerData[j] << "\n";
+    }
     MyWorkerWriteFile.close();
     string ds;
     for (int j = 0; j < numberOfRooms; j++) {
@@ -79,19 +80,19 @@ void loadstuff() {
     ifstream MyWorkerReadFile("WorkerFile.txt");
     ifstream MyRoomReadFile("RoomFile.txt");
     string h;
-    int num = 0;
-    /*while (getline(MyWorkerReadFile, h)) {
-        workerData[i] = h;
-        i++;
-    }*/
-    while (getline(MyRoomReadFile, h)) {
-        roomData[num] = h;
-        room[num].loadFile(h,window);
-        //room[num].spawn(window);
-        cout << h << endl;
-        num++;
+    string n;
+    int roomNum = 0;
+    int workerNum = 0;
+    while (getline(MyWorkerReadFile, h)) {
+        worker[workerNum].loadFile(h,window);
+        workerNum++;
     }
-    i += num;
+    while (getline(MyRoomReadFile, n)) {
+        room[roomNum].loadFile(n,window);
+        cout << n << endl;
+        roomNum++;
+    }
+    i += roomNum;
 }
 
 #pragma region menuMethods
@@ -270,7 +271,7 @@ int main()
         #pragma endregion Gameloop
 
         #pragma region defineMouse
-        MouseFolllowor.setPosition(Mouse::getPosition().x - 475, Mouse::getPosition().y - 70);
+        MouseFolllowor.setPosition(Mouse::getPosition().x - 375, Mouse::getPosition().y - 70);
         MouseFolllowor.setRadius(10);
         window.draw(MouseFolllowor);
         #pragma endregion defineMouse

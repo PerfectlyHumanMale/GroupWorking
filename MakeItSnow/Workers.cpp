@@ -91,23 +91,33 @@ public:
         return 0;
     }
 
-    void loadFile(Vector2f LocationPoint) {
-        string saveNumber(savedData[0]);
-        string saveX(savedData[1]);
-        string saveY(savedData[2]);
-        string saveHealth(savedData[3]);
-        string saveStrength(savedData[4]);
-        string saveEndurence(savedData[5]);
-        string saveIntelegence(savedData[6]);
+    void loadFile(string loadedData, RenderWindow& window) {
+
+        string st;
+        stringstream ss(loadedData);
+
+        vector<string> v;
+
+        while (getline(ss, st, '|')) {
+            v.push_back(st);
+        }
+        string saveNumber(v[0]);
+        string saveX(v[1]);
+        string saveY(v[2]);
+        string saveHealth(v[3]);
+        string saveStrength(v[4]);
+        string saveEndurence(v[5]);
+        string saveIntelegence(v[6]);
         string::size_type sz;
 
-        Location.x = stod(saveX, &sz);
-        Location.y = stod(saveY, &sz);
-        health = stod(saveHealth, &sz);
-        strength = stod(saveStrength, &sz);
-        endurence = stod(saveEndurence, &sz);
-        intellegence = stod(saveIntelegence, &sz);
-        workerNumber = stod(saveNumber, &sz);
+        health = stoi(saveHealth, &sz);
+        strength = stoi(saveStrength, &sz);
+        endurence = stoi(saveEndurence, &sz);
+        intellegence = stoi(saveIntelegence, &sz);
+        workerNumber = stoi(saveNumber, &sz);
+
+        setLocation(Vector2f(stof(saveX, &sz), stof(saveY, &sz)));
+        setRoom(Vector2f(0,800));
     }
     String saveTheData() {
         savedData[0] = to_string(workerNumber);
