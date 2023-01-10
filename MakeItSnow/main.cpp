@@ -26,6 +26,8 @@ int metal = 11;
 int t = 0;
 int i = 0;
 int workernumber;
+int numberofrooms = 0;
+int numberofworkers = 0;
 
 bool paused = false;
 bool buildup = false;
@@ -38,13 +40,15 @@ Rooms CargoHold;
 RenderWindow window(sf::VideoMode(winWidth, winHeight), "Main");
 
 float currentOxygen = 50;
-float totalOxygen = 50 + i * 20;
+float totalOxygen = 50 + numberofrooms * 20;
+float oxegyendrian = 0;
 
 RectangleShape outObar;
 RectangleShape innerObar;
 
 float currentHunger = 50;
-float totalHunger = 50 + i * 20;
+float totalHunger = 50 + numberofworkers * 20;
+float hungerdrain = 0;
 
 RectangleShape outHbar;
 RectangleShape innerHbar;
@@ -52,7 +56,8 @@ RectangleShape innerHbar;
 float hungerPercentage = ((float)currentHunger / (float)totalHunger) * 100;
 
 float currentPower = 50;
-float totalPower = 50 + i * 20;
+float totalPower = 50 + numberofrooms * 20;
+float powerdrain = 0;
 
 RectangleShape outPbar;
 RectangleShape innerPbar;
@@ -304,15 +309,16 @@ int main()
                 }
             }
             if (metal >= 10 && here == true && roomhere == false) {
-                room[i].setLocation(MouseFolllowor.getPosition());
-                room[i].determinType(i % 3, CargoHold.getLocation().x);
+                room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+                room[numberofrooms].determinType(i % 3, CargoHold.getLocation().x);
                 cout << MouseFolllowor.getPosition().x << endl;
                 cout << MouseFolllowor.getPosition().y << endl;
                 metal -= 10;
+                numberofrooms++;
             }
-            worker[i].setnumber(i);
+            worker[numberofworkers].setnumber(numberofworkers);
             worker[workernumber].setRoom(LocationOfRoom);
-            worker[i].setLocation(CargoHold.getLocation());
+            worker[numberofworkers].setLocation(CargoHold.getLocation());
             cout << workernumber << endl;
             cout << to_string( LocationOfRoom.x) + " " + to_string(LocationOfRoom.y) << endl;
             i++;
@@ -323,7 +329,13 @@ int main()
         #pragma endregion RoomPlacement
 
         #pragma region Gameloop
+        hungerdrain = 0.1 * numberofworkers;
+        currentHunger -= hungerdrain;
 
+        powerdrain = 0.1 * numberofrooms;
+        currentPower -= powerdrain;
+
+        oxegyendrian = 0.1 * numberofworkers;
         for (int j = 0; j < 100; j++) {
             CargoHold.spawn(window);
 

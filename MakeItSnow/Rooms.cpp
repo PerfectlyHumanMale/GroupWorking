@@ -79,9 +79,9 @@ public:
         }
     }
 
-    int Output(Vector2f worker) {
+    float Output(Vector2f worker) {
         if (s.getGlobalBounds().contains(worker)) {
-            return 1;
+            return 0.6;
         }
     }
     int getType() {
