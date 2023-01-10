@@ -82,15 +82,15 @@ void gridview(RenderWindow& wind) {
     }
 }
 
-void saveStuff(int numberOfRooms, int numberOfWorkers, int ox, int hunger, int power) {
+void saveStuff(int numberOfRooms, int numberOfWorkers) {
     ofstream MyWorkerWriteFile("WorkerFile.txt");
     ofstream MyRoomWriteFile("RoomFile.txt");
     ofstream MyReasourseWriteFile("ResourseFile.txt");
 
-    MyReasourseWriteFile << ox << "\n";
-    MyReasourseWriteFile << hunger << "\n";
-    MyReasourseWriteFile << power << "\n";
-    MyReasourseWriteFile.close();
+    //MyReasourseWriteFile << currentOxygen << "\n";
+    //MyReasourseWriteFile << currentHunger << "\n";
+    //MyReasourseWriteFile << currentPower << "\n";
+    //MyReasourseWriteFile.close();
 
     string ah;
 
@@ -222,7 +222,7 @@ int main()
 
         outHbar.setOutlineColor(Color(255, 255, 255));
         outHbar.setOutlineThickness(2);
-        outHbar.setSize(Vector2f(100, 40));
+        outHbar.setSize(Vector2f(totalHunger, 40));
         outHbar.setPosition(Vector2f(10, 10));
         outHbar.setFillColor(Color::Black);
 
@@ -232,7 +232,7 @@ int main()
 
         outPbar.setOutlineColor(Color(255, 255, 255));
         outPbar.setOutlineThickness(2);
-        outPbar.setSize(Vector2f(100, 40));
+        outPbar.setSize(Vector2f(totalPower, 40));
         outPbar.setPosition(Vector2f(10, 60));
         outPbar.setFillColor(Color::Black);
 
@@ -242,7 +242,7 @@ int main()
 
         outObar.setOutlineColor(Color(255, 255, 255));
         outObar.setOutlineThickness(2);
-        outObar.setSize(Vector2f(100, 40));
+        outObar.setSize(Vector2f(totalOxygen, 40));
         outObar.setPosition(Vector2f(10, 110));
         outObar.setFillColor(Color::Black);
 
@@ -258,12 +258,15 @@ int main()
         }
         if (Keyboard::isKeyPressed(Keyboard::G)) {
             gridview(window);
+            cout << currentHunger << endl;
+            cout << currentOxygen << endl;
+            cout << currentPower << endl;
         }
         if (Keyboard::isKeyPressed(Keyboard::O)) {
             LocationOfRoom = room[i].desplayLocation(MouseFolllowor, click);
         }
         if (Keyboard::isKeyPressed(Keyboard::Q)) {
-            saveStuff(i, i, currentOxygen, currentHunger, currentPower);
+            saveStuff(i, i);
         }
 
         if (Keyboard::isKeyPressed(Keyboard::A)) {
@@ -312,7 +315,6 @@ int main()
             worker[i].setLocation(CargoHold.getLocation());
             cout << workernumber << endl;
             cout << to_string( LocationOfRoom.x) + " " + to_string(LocationOfRoom.y) << endl;
-            //cout << i << endl;
             i++;
         }
         else if (event.type == Event::MouseButtonReleased) {
@@ -328,17 +330,16 @@ int main()
             LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
             room[j].returnClick(MouseFolllowor);
             room[j].spawn(window);
-            switch (room[i].getType()) {
-            case 0:
-                currentOxygen += room[j].Output(worker);
-                break;
-            case 1:
-                currentPower += room[j].Output(worker);
-                break;
-            case 2:
-                currentHunger += room[j].Output(worker);
-                break;
+            if (room[j].Output(worker[j].getLocation()) >0 && room[j].getType() == 0) {
+                currentOxygen += room[j].Output(worker[j].getLocation());
             }
+            else if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 1) {
+                currentPower += room[j].Output(worker[j].getLocation());
+            }
+            else if(room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 2) {
+                currentHunger += room[j].Output(worker[j].getLocation());
+            }
+            currentOxygen =+ worker[j].Output();
             
             WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor, click));
             BuildMenuMethods(BuildMenu.tabClick(MouseFolllowor, click));
@@ -357,14 +358,13 @@ int main()
         window.draw(outHbar);
         window.draw(innerHbar);
 
-
         MinigameMenu.drawMenu(window);
         BuildMenu.drawMenu(window);
         WorkerMenu.drawMenu(window);
         #pragma endregion Gameloop
 
         #pragma region defineMouse
-        MouseFolllowor.setPosition(Mouse::getPosition().x - 375, Mouse::getPosition().y - 70);
+        MouseFolllowor.setPosition(Mouse::getPosition().x - 475, Mouse::getPosition().y - 70);
         MouseFolllowor.setRadius(10);
         window.draw(MouseFolllowor);
         #pragma endregion defineMouse

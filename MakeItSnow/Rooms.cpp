@@ -79,11 +79,9 @@ public:
         }
     }
 
-    int Output(Workers workers[100]) {
-        for (int i = 0; i < 100; ) {
-            if (s.getGlobalBounds().contains(workers[i].getLocation())) {
-                return 1;
-            }
+    int Output(Vector2f worker) {
+        if (s.getGlobalBounds().contains(worker)) {
+            return 1;
         }
     }
     int getType() {
