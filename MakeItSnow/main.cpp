@@ -26,6 +26,13 @@ Vector2f LocationOfRoom;
 #define winWidth1 1100
 #define winHeight1 1000
 
+// define game render window size constants - Justin Simpson
+#define winWidth 736
+#define winHeight 552
+
+// Create game the window - Justin Simpson
+RenderWindow winow(VideoMode(winWidth, winHeight), "Asteroids!");
+
 Menus MinigameMenu;
 Menus WorkerMenu;
 Menus BuildMenu;
@@ -80,15 +87,12 @@ string workerData[100];
 
 // A C++ SFML program with falling asteroids and a moving spaceship - Justin Simpson
 
-// define render window size constants
-#define winWidth 736
-#define winHeight 552
 
 const int NUM_FRAMES = 8; // Number of frames in the explosion animation
 const int FRAME_WIDTH = 64; // Width of each frame in the explosion sprite sheet
 const int FRAME_HEIGHT = 64; // Height of each frame in the explosion sprite sheet
 // Function to display the Game Over screen
-void displayGameOverScreen(sf::RenderWindow& window)
+void displayGameOverScreen(sf::RenderWindow& windw)
 {
 	// Load font
 	Font font;
@@ -97,7 +101,7 @@ void displayGameOverScreen(sf::RenderWindow& window)
 	}
 
 	// Clear the window to black
-	window.clear(Color::Black);
+	windw.clear(Color::Black);
 
 	// Create the game over text
 	Text gameOverText;
@@ -108,31 +112,30 @@ void displayGameOverScreen(sf::RenderWindow& window)
 	gameOverText.setStyle(sf::Text::Bold);
 
 	// Set the position of the texts
-	sf::Vector2u windowSize = window.getSize();
+	sf::Vector2u windowSize = windw.getSize();
 	gameOverText.setPosition((windowSize.x - gameOverText.getLocalBounds().width) / 2, (windowSize.y - gameOverText.getLocalBounds().height) / 2);
 
 	// Draw the texts
-	window.draw(gameOverText);
+	windw.draw(gameOverText);
 
 	// Display the window
-	window.display();
+	windw.display();
 
 	while (true)
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (windw.pollEvent(event))
 		{
 			// Closes the window
 			if (event.type == Event::Closed)
-				window.close();
+				windw.close();
 		}
 	}
 }
 
 // Function to display the Game Over screen
-void displayWinScreen(sf::RenderWindow& window)
+void displayWinScreen(sf::RenderWindow& windw)
 {
-
 	// Load font
 	Font font;
 	if (!font.loadFromFile("myFont.ttf")) {
@@ -140,7 +143,7 @@ void displayWinScreen(sf::RenderWindow& window)
 	}
 
 	// Clear the window to black
-	window.clear(Color::Black);
+	windw.clear(Color::Black);
 
 	// Create the You Won text
 	Text winText;
@@ -151,24 +154,24 @@ void displayWinScreen(sf::RenderWindow& window)
 	winText.setStyle(sf::Text::Bold);
 
 	// Set the position of the texts
-	sf::Vector2u windowSize = window.getSize();
+	sf::Vector2u windowSize = windw.getSize();
 	winText.setPosition((windowSize.x - winText.getLocalBounds().width) / 2, (windowSize.y - winText.getLocalBounds().height) / 2);
 
 	// Draw the texts
-	window.draw(winText);
+	windw.draw(winText);
 
 	// Display the window
-	window.display();
+	windw.display();
 
 	// Wait for the player to press space
 	while (true)
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (windw.pollEvent(event))
 		{
 			// "close requested" event: we close the window
 			if (event.type == Event::Closed)
-				window.close();
+				windw.close();
 		}
 	}
 }
@@ -177,9 +180,6 @@ void Asteroids() {
 
 	// Defining the score and setting it to 0
 	int score = 0;
-
-	// Create the window
-	RenderWindow winow(VideoMode(winWidth, winHeight), "Asteroids!");
 
 	// Set the framerate limit to 60 FPS
 	winow.setFramerateLimit(60);
@@ -426,7 +426,7 @@ void Asteroids() {
 					dead.play();
 
 					// Displays game over screen
-					displayGameOverScreen(winow);
+					//displayGameOverScreen(winow);
 					winow.close();
 				}
 			}
@@ -459,7 +459,8 @@ void Asteroids() {
 
 		// If the score reaches 50, Display the Win screen
 		if (score == 50) {
-			displayWinScreen(winow);
+			//displayWinScreen(winow);
+			winow.close();
 		}
 
 		// Display the score on the screen
