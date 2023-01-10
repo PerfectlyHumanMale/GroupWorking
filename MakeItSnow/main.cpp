@@ -30,9 +30,6 @@ Vector2f LocationOfRoom;
 #define winWidth 736
 #define winHeight 552
 
-// Create game the window - Justin Simpson
-RenderWindow winow(VideoMode(winWidth, winHeight), "Asteroids!");
-
 Menus MinigameMenu;
 Menus WorkerMenu;
 Menus BuildMenu;
@@ -177,6 +174,8 @@ void displayWinScreen(sf::RenderWindow& windw)
 }
 
 void Asteroids() {
+	// Create game the window - Justin Simpson
+	RenderWindow winow(VideoMode(winWidth, winHeight), "Asteroids!");
 
 	// Defining the score and setting it to 0
 	int score = 0;
@@ -468,7 +467,7 @@ void Asteroids() {
 		text.setFont(font); // Set the font for the text
 		text.setString("Score: " + std::to_string(score)); // Set the text to display the current score
 		text.setCharacterSize(45.0f); // Set the character size
-		text.setFillColor(sf::Color::Black); // Set the text color
+		text.setFillColor(sf::Color::White); // Set the text color
 		winow.draw(text); // Draw the text on the screen
 
 		// end the current frame
@@ -478,14 +477,7 @@ void Asteroids() {
 	}
 }
 
-bool run = false;
-void rungame(sf::RenderWindow& wiow) {
-	if (Keyboard::isKeyPressed(Keyboard::Space)) {
-		Asteroids();
-	}
-}
 #pragma endregion astriod 
-
 
 void gridview(RenderWindow& wind) {
     vector<RectangleShape> v;
@@ -630,7 +622,10 @@ int main()
         window.clear(Color::Black);
        #pragma endregion houseKeeping
 		
-		rungame(window);
+		
+	if (Keyboard::isKeyPressed(Keyboard::Space)) {
+		Asteroids();
+	}
         #pragma region bars 
         totalOxygen = 150 + numberofworkers * 20;
         totalHunger = 150 + numberofworkers * 20;
