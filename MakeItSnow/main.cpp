@@ -6,7 +6,9 @@
 #include <string>
 #include "Rooms.cpp"
 #include "Workers.cpp"
+#include "Collision.hpp"
 #include "Menus.cpp"
+
 using namespace sf;
 using namespace std;
 #pragma endregion imports
@@ -24,7 +26,6 @@ Menus BuildMenu;
 
 int metal = 11;
 int t = 0;
-//int i = 0;
 int workernumber;
 int numberofrooms = 0;
 int numberofworkers = 0;
@@ -95,6 +96,7 @@ void saveStuff(int numberOfRooms, int numberOfWorkers) {
     //MyReasourseWriteFile << currentOxygen << "\n";
     //MyReasourseWriteFile << currentHunger << "\n";
     //MyReasourseWriteFile << currentPower << "\n";
+    //MyReasourseWriteFile << metal << "\n";
     //MyReasourseWriteFile.close();
 
     string ah;
@@ -139,18 +141,9 @@ void loadstuff() {
 }
 
 #pragma region menuMethods
+ 
 void MinigameMethods(int num) {
-    //bring up the minigames
-    switch (num) {
-    case 0:
-        break;
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    }
+    
 }
 void WorkerMenuMethods(int num) {
     switch (num) {
@@ -221,9 +214,9 @@ int main()
        #pragma endregion houseKeeping
 
         #pragma region bars 
-        totalOxygen = 50 + numberofworkers * 20;
-        totalHunger = 50 + numberofworkers * 20;
-        totalPower = 50 + numberofrooms * 20;
+        totalOxygen = 150 + numberofworkers * 20;
+        totalHunger = 150 + numberofworkers * 20;
+        totalPower = 150 + numberofrooms * 20;
 
         outHbar.setOutlineColor(Color(255, 255, 255));
         outHbar.setOutlineThickness(2);
@@ -263,12 +256,10 @@ int main()
         }
         if (Keyboard::isKeyPressed(Keyboard::G)) {
             gridview(window);
-            cout << currentHunger << endl;
-            cout << currentOxygen << endl;
-            cout << currentPower << endl;
         }
         if (Keyboard::isKeyPressed(Keyboard::O)) {
             LocationOfRoom = room[numberofrooms].desplayLocation(MouseFolllowor, click);
+            //Asteroids();
         }
         if (Keyboard::isKeyPressed(Keyboard::Q)) {
             saveStuff(numberofrooms, numberofworkers);
@@ -321,7 +312,6 @@ int main()
             worker[numberofworkers].setLocation(CargoHold.getLocation());
             cout << workernumber << endl;
             cout << to_string( LocationOfRoom.x) + " " + to_string(LocationOfRoom.y) << endl;
-            //i++;
         }
         else if (event.type == Event::MouseButtonReleased) {
             click = true;
@@ -343,13 +333,13 @@ int main()
             LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
             room[j].returnClick(MouseFolllowor);
             room[j].spawn(window);
-            if (room[j].Output(worker[j].getLocation()) >0 && room[j].getType() == 0) {
+            if (room[j].Output(worker[j].getLocation()) >0 && room[j].getType() == 0 && currentOxygen<totalOxygen) {
                 currentOxygen += room[j].Output(worker[j].getLocation());
             }
-            else if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 1) {
+            else if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 1 && currentPower < totalPower) {
                 currentPower += room[j].Output(worker[j].getLocation());
             }
-            else if(room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 2) {
+            else if(room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 2 && currentHunger < totalHunger) {
                 currentHunger += room[j].Output(worker[j].getLocation());
             }
             
@@ -383,4 +373,7 @@ int main()
         window.display();
     }
     return 0;
+
+    if (Keyboard::isKeyPressed(Keyboard::Space)) {
+    }
 }
