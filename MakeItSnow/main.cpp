@@ -30,7 +30,7 @@ Menus MinigameMenu;
 Menus WorkerMenu;
 Menus BuildMenu;
 
-int metal = 11;
+int steel = 11;
 int t = 0;
 int workernumber;
 int numberofrooms = 0;
@@ -423,7 +423,6 @@ void Asteroids() {
 
 				// If spaceship collides with an asteroid
 				if (Collision::PixelPerfectTest(spr_spaceship, asteroid[i])) {
-
 					dead.play();
 
 					// Displays game over screen
@@ -448,6 +447,7 @@ void Asteroids() {
 
 				// Increment the score
 				score++;
+				steel++;
 
 				metal.play();
 
@@ -668,7 +668,7 @@ int main()
 
         #pragma region buttonStuff
         if (Keyboard::isKeyPressed(Keyboard::H)) {
-            metal += 10;
+            steel += 10;
         }
         if (Keyboard::isKeyPressed(Keyboard::G)) {
             gridview(window);
@@ -714,12 +714,12 @@ int main()
                     workernumber = worker[j].desplaynumber(MouseFolllowor, click);
                 }
             }
-            if (metal >= 10 && here == true && roomhere == false) {
+            if (steel >= 10 && here == true && roomhere == false) {
                 room[numberofrooms].setLocation(MouseFolllowor.getPosition());
                 room[numberofrooms].determinType(numberofrooms % 3, CargoHold.getLocation().x);
                 /*cout << MouseFolllowor.getPosition().x << endl;
                 cout << MouseFolllowor.getPosition().y << endl;*/
-                metal -= 10;
+                steel -= 10;
                 numberofrooms++;
             }
             worker[numberofworkers].setnumber(numberofworkers);
