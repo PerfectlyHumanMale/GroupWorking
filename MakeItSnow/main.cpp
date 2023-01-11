@@ -613,8 +613,6 @@ int main()
     CargoHold.setOutlineThickness(10);
     #pragma endregion defineCargo
 
-	cout << WorkerMenu.tabClick(MouseFolllowor) << "\n";
-
     #pragma region houseKeeping
     while (window.isOpen()) {
         Event event;
@@ -626,7 +624,7 @@ int main()
         window.clear(Color::Black);
        #pragma endregion houseKeeping	
 	
-		MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
+		//MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
         #pragma region bars 
         totalOxygen = 150 + numberofworkers * 20;
         totalHunger = 150 + numberofworkers * 20;
@@ -726,7 +724,10 @@ int main()
             click = true;
         }
         #pragma endregion RoomPlacement
-
+		
+		MinigameMenu.tabClick(MouseFolllowor, !click);
+		BuildMenu.tabClick(MouseFolllowor, !click);
+		WorkerMenu.tabClick(MouseFolllowor, !click);
         #pragma region Gameloop
         hungerdrain = 0.01 * numberofworkers;
         currentHunger -= hungerdrain;

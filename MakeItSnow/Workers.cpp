@@ -36,11 +36,7 @@ public:
         sprite.setPosition(cargoLocation);
         //s.setFillColor(Color::Red);
         //s.setRadius(20);
-
         texture.loadFromFile("Spaceman.png");
-    }
-    void setTexturee() {
-
     }
     void getCargoLocation(Vector2f v) {
         cargoLocation = v;
@@ -48,7 +44,7 @@ public:
     void spawn(sf::RenderWindow& wind) {
 
         sprite.setPosition(Location);
-        sprite.setScale(Vector2f(0.048828125, 0.048828125));
+        sprite.setScale(Vector2f(0.03, 0.03));
         //s.setPosition(Location);
         sprite.setTexture(texture);
         //wind.draw(s);

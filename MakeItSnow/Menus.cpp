@@ -10,6 +10,7 @@ class Menus {
     bool up;
     Event event;
     vector <RectangleShape> tabs;
+//    RectangleShape tabs[10];
     vector <bool> tabclick;
     int tabPostion = 5;
     vector <RectangleShape> icon;
@@ -38,10 +39,10 @@ public:
             tabs[i].setPosition(menu.getPosition().x + 5, menu.getPosition().y + tabPostion);
             tabs[i].setSize(Vector2f((menu.getSize().x - 10), 50));
 
-            icon.push_back(RectangleShape());
-            icon[i].setFillColor(Color(255, 0, 0));
-            icon[i].setPosition(menu.getPosition().x + 5, menu.getPosition().y + tabPostion);
-            icon[i].setSize(Vector2f(50, 50));
+            //icon.push_back(RectangleShape());
+            //icon[i].setFillColor(Color(255, 0, 0));
+            //icon[i].setPosition(menu.getPosition().x + 5, menu.getPosition().y + tabPostion);
+            //icon[i].setSize(Vector2f(50, 50));
 
             tabText.push_back(Text());
             tabText[i].setPosition(menu.getPosition().x + 55, menu.getPosition().y + tabPostion);
@@ -64,22 +65,20 @@ public:
             wind.draw(menu);
             for (int i = 0; i < tabs.size();i++) {
                 wind.draw(tabs[i]);
-                wind.draw(icon[i]);
+                //wind.draw(icon[i]);
             }
         }
     }
-    bool click = true;
-    int tabClick(CircleShape MouseFolllowor) {
-        for (int i = 0; i < tabs.size();i++) {
-            if (tabs[i].getGlobalBounds().contains(MouseFolllowor.getPosition()) && event.type == Event::MouseButtonPressed && up) {
-                cout << "e";
-                //sleep(milliseconds(1000));
-                return tabs.size();
-                up = false;
+    int tabClick(CircleShape MouseFolllowor, bool u) {
+        for (int j = 0; j < tabs.size();j++) {
+            if (tabs[j].getGlobalBounds().contains(MouseFolllowor.getPosition()) && u && up) {
+                cout << j<< endl;
+                return j;
+                //up = false;
             }
             else if(event.type == Event::MouseButtonReleased) {
-                /*click = true;
-                up = true;*/
+                up = false;
+                u = false;
             }
         }
     }
