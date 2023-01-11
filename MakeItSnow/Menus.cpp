@@ -68,16 +68,19 @@ public:
             }
         }
     }
-    int tabClick(CircleShape MouseFolllowor, bool click) {
+    bool click = true;
+    int tabClick(CircleShape MouseFolllowor) {
         for (int i = 0; i < tabs.size();i++) {
-            if (tabs[i].getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click && up) {
-                cout << "\n" << i;
-                int i;
+            if (tabs[i].getGlobalBounds().contains(MouseFolllowor.getPosition()) && event.type == Event::MouseButtonPressed && up) {
+                cout << "e";
+                //sleep(milliseconds(1000));
+                return tabs.size();
+                up = false;
             }
-            else {
-                int i;
+            else if(event.type == Event::MouseButtonReleased) {
+                /*click = true;
+                up = true;*/
             }
         }
-        return 0;
     }
 };

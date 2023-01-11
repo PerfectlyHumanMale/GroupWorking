@@ -13,7 +13,6 @@ using namespace sf;
 using namespace std;
 class Rooms : public RectangleShape {
     Vector2f Location;
-    Texture Sprite;
     
     int roomNumber;
     int oxagen = 10;
@@ -21,6 +20,8 @@ class Rooms : public RectangleShape {
     int food = 10;
 
     int Type;//Types are Green House = 1, Genarater = 2, Kitchen = 3, Elevater = 4
+    Texture genarater_tex, garden_tex, astronote_tex, canten_tex;
+    Sprite sprite;
 
     RectangleShape s;
     //vector <string> savedData;
@@ -33,7 +34,10 @@ public:
 
     void spawn(RenderWindow& wind) {
         s.setPosition(Location);
+        sprite.setPosition(Location);
+        sprite.setScale(Vector2f(0.048828125, 0.048828125));
         wind.draw(s);
+        wind.draw(sprite);
     }
     Vector2f getLocation() {
         return Location;
@@ -58,19 +62,24 @@ public:
     //Types are Green House = 0, Genarater = 1, Kitchen = 2, Elevater = 3
     void determinType(int type, int cargoX) {
         Type = type;
+        genarater_tex.loadFromFile("Energy.png");
+        garden_tex.loadFromFile("Food.png");
+        astronote_tex.loadFromFile("Spaceman.png");
+        canten_tex.loadFromFile("Canteen.png");
+
         if (cargoX == getLocation().x) {
             s.setFillColor(Color(100, 0, 0));
         }
         else {
             switch (type) {
             case 0:
-                s.setFillColor(Color(0, 200, 0));
+                sprite.setTexture(genarater_tex);
                 break;
             case 1:
-                s.setFillColor(Color(200, 0, 0));
+                sprite.setTexture(garden_tex);
                 break;
             case 2:
-                s.setFillColor(Color(0, 0, 200));
+                sprite.setTexture(canten_tex);
                 break;
             default:
                 s.setFillColor(Color(255, 255, 255));

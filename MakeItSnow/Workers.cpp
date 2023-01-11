@@ -12,7 +12,6 @@ using namespace std;
 
 class Workers {
     String savedX, savedY;
-    Texture Sprite;
 
     Vector2f Location = Vector2f(100,100);
     Vector2f cargoLocation;
@@ -27,20 +26,33 @@ class Workers {
     int workerNumber;
 
     Event event;
-    CircleShape s;
+    //CircleShape s;
     String savedData[9];
+
+    Texture texture;
+    Sprite sprite;
 public:
     Workers() {
-        s.setPosition(cargoLocation);
-        s.setFillColor(Color::Red);
-        s.setRadius(20);
+        sprite.setPosition(cargoLocation);
+        //s.setFillColor(Color::Red);
+        //s.setRadius(20);
+
+        texture.loadFromFile("Spaceman.png");
+    }
+    void setTexturee() {
+
     }
     void getCargoLocation(Vector2f v) {
         cargoLocation = v;
     }
     void spawn(sf::RenderWindow& wind) {
-        s.setPosition(Location);
-        wind.draw(s);
+
+        sprite.setPosition(Location);
+        sprite.setScale(Vector2f(0.048828125, 0.048828125));
+        //s.setPosition(Location);
+        sprite.setTexture(texture);
+        //wind.draw(s);
+        wind.draw(sprite);
     }
     Vector2f getLocation() {
         return Location;
@@ -79,7 +91,7 @@ public:
     }
 
     int Output() {
-            if (s.getGlobalBounds().contains(RoomLocation)) {
+            if (sprite.getGlobalBounds().contains(RoomLocation)) {
                 return 1;
             }
         }
@@ -87,7 +99,7 @@ public:
         workerNumber = num;
     }
     int desplaynumber(CircleShape MouseFolllowor, bool click) {
-        if (s.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
+        if (sprite.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
             cout << "clicked ";
             return workerNumber;
         }

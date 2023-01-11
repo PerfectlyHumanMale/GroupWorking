@@ -81,9 +81,7 @@ string workerData[100];
 #pragma endregion publicVerables 
 
 #pragma region astriod 
-
 // A C++ SFML program with falling asteroids and a moving spaceship - Justin Simpson
-
 
 const int NUM_FRAMES = 8; // Number of frames in the explosion animation
 const int FRAME_WIDTH = 64; // Width of each frame in the explosion sprite sheet
@@ -212,7 +210,6 @@ void Asteroids() {
 
 	explosionSprite.setTexture(explosionTexture);
 	explosionSprite.setOrigin(FRAME_WIDTH / 2, FRAME_HEIGHT / 2); // Set the origin to the center of the sprite
-
 
 	// Create a clock to track the elapsed time for the animation
 	Clock clock;
@@ -496,7 +493,6 @@ void gridview(RenderWindow& wind) {
         wind.draw(v.back());
     }
 }
-
 void saveStuff(int numberOfRooms, int numberOfWorkers) {
     ofstream MyWorkerWriteFile("WorkerFile.txt");
     ofstream MyRoomWriteFile("RoomFile.txt");
@@ -552,25 +548,32 @@ void loadstuff() {
 #pragma region menuMethods
  
 void MinigameMethods(int num) {
-    
+	switch (num) {
+	case 0:
+		cout << "2";
+		//Asteroids();
+		break;
+	}
 }
 void WorkerMenuMethods(int num) {
     switch (num) {
-    case 0:
-        //spawn worker
-        break;
     case 1:
+		cout << "1";
         break;
     case 2:
+		cout << "2";
         break;
     case 3:
+		cout << "3";
         break;
     }
+	//workernumber++;
 }
 void BuildMenuMethods(int num) {
     switch (num) {
     case 0:
         //build elevater
+		
         break;
     case 1:
         //build generater
@@ -607,9 +610,10 @@ int main()
     #pragma region defineCargo
     CargoHold.setLocation(Vector2f(winWidth1 / 2, winHeight1 / 2));
     CargoHold.setFillColor(Color(255, 255, 255));
-    CargoHold.setOutlineColor(Color(255, 255, 255));
     CargoHold.setOutlineThickness(10);
     #pragma endregion defineCargo
+
+	cout << WorkerMenu.tabClick(MouseFolllowor) << "\n";
 
     #pragma region houseKeeping
     while (window.isOpen()) {
@@ -620,12 +624,9 @@ int main()
             }
         }
         window.clear(Color::Black);
-       #pragma endregion houseKeeping
-		
-		
-	if (Keyboard::isKeyPressed(Keyboard::Space)) {
-		Asteroids();
-	}
+       #pragma endregion houseKeeping	
+	
+		MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
         #pragma region bars 
         totalOxygen = 150 + numberofworkers * 20;
         totalHunger = 150 + numberofworkers * 20;
@@ -676,10 +677,12 @@ int main()
         if (Keyboard::isKeyPressed(Keyboard::Q)) {
             saveStuff(numberofrooms, numberofworkers);
         }
-
         if (Keyboard::isKeyPressed(Keyboard::A)) {
             loadstuff();
         }
+		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+			Asteroids();
+		}
         #pragma endregion buttonStuff
 
         #pragma region RoomPlacement
@@ -690,8 +693,7 @@ int main()
             int x = MouseFolllowor.getPosition().x;
             int y = MouseFolllowor.getPosition().y;
 
-            for (int j = 0; j < 100; j++) {
-                
+            for (int j = 0; j < 100; j++) { 
                 if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100)) || room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) -100, MouseFolllowor.getPosition().y - (y % 100))) {
                     here = true;
                 }
@@ -713,16 +715,12 @@ int main()
             if (steel >= 10 && here == true && roomhere == false) {
                 room[numberofrooms].setLocation(MouseFolllowor.getPosition());
                 room[numberofrooms].determinType(numberofrooms % 3, CargoHold.getLocation().x);
-                /*cout << MouseFolllowor.getPosition().x << endl;
-                cout << MouseFolllowor.getPosition().y << endl;*/
                 steel -= 10;
                 numberofrooms++;
             }
             worker[numberofworkers].setnumber(numberofworkers);
             worker[workernumber].setRoom(LocationOfRoom);
             worker[numberofworkers].setLocation(CargoHold.getLocation());
-            //cout << workernumber << endl;
-            //cout << to_string( LocationOfRoom.x) + " " + to_string(LocationOfRoom.y) << endl;
         }
         else if (event.type == Event::MouseButtonReleased) {
             click = true;
@@ -730,13 +728,13 @@ int main()
         #pragma endregion RoomPlacement
 
         #pragma region Gameloop
-        hungerdrain = 0.1 * numberofworkers;
+        hungerdrain = 0.01 * numberofworkers;
         currentHunger -= hungerdrain;
 
-        powerdrain = 0.1 * numberofrooms;
+        powerdrain = 0.01 * numberofrooms;
         currentPower -= powerdrain;
 
-        oxegyendrian = 0.1 * numberofworkers;
+        oxegyendrian = 0.01 * numberofworkers;
         currentOxygen -= oxegyendrian;
         for (int j = 0; j < 100; j++) {
             CargoHold.spawn(window);
@@ -753,11 +751,7 @@ int main()
             else if(room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 2 && currentHunger < totalHunger) {
                 currentHunger += room[j].Output(worker[j].getLocation());
             }
-            
-            WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor, click));
-            BuildMenuMethods(BuildMenu.tabClick(MouseFolllowor, click));
-            MinigameMethods(MinigameMenu.tabClick(MouseFolllowor, click));
-
+            //MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
             worker[j].spawn(window);
             worker[j].moveToRoom(CargoHold.getLocation());
             worker[j].Output();
@@ -777,12 +771,11 @@ int main()
         #pragma endregion Gameloop
 
         #pragma region defineMouse
-        MouseFolllowor.setPosition(Mouse::getPosition().x - 475, Mouse::getPosition().y - 70);
+        MouseFolllowor.setPosition(Mouse::getPosition().x - 425, Mouse::getPosition().y - 80);
         MouseFolllowor.setRadius(10);
         window.draw(MouseFolllowor);
         #pragma endregion defineMouse
         window.display();
     }
     return 0;
-
 }
