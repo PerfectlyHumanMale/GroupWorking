@@ -549,9 +549,9 @@ void loadstuff() {
  
 void MinigameMethods(int num) {
 	switch (num) {
-	case 0:
+	case 1:
 		cout << "2";
-		//Asteroids();
+		Asteroids();
 		break;
 	}
 }
@@ -570,21 +570,17 @@ void WorkerMenuMethods(int num) {
 	//workernumber++;
 }
 void BuildMenuMethods(int num) {
-    switch (num) {
-    case 0:
-        //build elevater
-		
-        break;
-    case 1:
-        //build generater
-        break;
-    case 2:
-        //build greenhouse
-        break;
-    case 3:
-        //
-        break;
-    }
+	switch (num) {
+	case 1:
+		cout << "p";
+		break;
+	case 2:
+		cout << "o";
+		break;
+	case 3:
+		cout << "h";
+		break;
+	}
 }
 void createFile(string fileName) {
     ofstream MyWriteFile(fileName+".txt");
@@ -690,6 +686,9 @@ int main()
             bool roomhere = false;
             int x = MouseFolllowor.getPosition().x;
             int y = MouseFolllowor.getPosition().y;
+			MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
+			BuildMenuMethods(BuildMenu.tabClick(MouseFolllowor));
+			WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor));
 
             for (int j = 0; j < 100; j++) { 
                 if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100)) || room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) -100, MouseFolllowor.getPosition().y - (y % 100))) {
@@ -725,9 +724,6 @@ int main()
         }
         #pragma endregion RoomPlacement
 		
-		MinigameMenu.tabClick(MouseFolllowor, !click);
-		BuildMenu.tabClick(MouseFolllowor, !click);
-		WorkerMenu.tabClick(MouseFolllowor, !click);
         #pragma region Gameloop
         hungerdrain = 0.01 * numberofworkers;
         currentHunger -= hungerdrain;
@@ -758,7 +754,7 @@ int main()
             worker[j].Output();
             workerData[j] = worker[j].saveTheData();
         }
-
+		
         window.draw(outObar);
         window.draw(innerObar);
         window.draw(outPbar);

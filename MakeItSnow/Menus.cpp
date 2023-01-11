@@ -8,6 +8,7 @@ class Menus {
     RectangleShape menu;
     Keyboard::Key setkey;
     bool up;
+    bool u;
     Event event;
     vector <RectangleShape> tabs;
 //    RectangleShape tabs[10];
@@ -54,9 +55,24 @@ public:
         menu.setFillColor(Color(190, 190, 190));
         menu.setPosition(Location);
     }
+    
+    int tabClick(CircleShape MouseFolllowor) {
+        //e.type == e.MouseButtonPressed;
+        for (int j = 0; j < tabs.size();j++) {
+            if (tabs[j].getGlobalBounds().contains(MouseFolllowor.getPosition()) && up == true) {
+                cout << j<< endl;
+                return j;
+                u = false;
+            }
+        }
+            cout << "vjggj"<< endl;
+        
+    }
+
     void drawMenu(RenderWindow& wind) {
         if (Keyboard::isKeyPressed(setkey)) {
             up = true;
+            u = false;
         }
         else if (Keyboard::isKeyPressed(Keyboard::Escape)) {
             up = false;
@@ -66,19 +82,6 @@ public:
             for (int i = 0; i < tabs.size();i++) {
                 wind.draw(tabs[i]);
                 //wind.draw(icon[i]);
-            }
-        }
-    }
-    int tabClick(CircleShape MouseFolllowor, bool u) {
-        for (int j = 0; j < tabs.size();j++) {
-            if (tabs[j].getGlobalBounds().contains(MouseFolllowor.getPosition()) && u && up) {
-                cout << j<< endl;
-                return j;
-                //up = false;
-            }
-            else if(event.type == Event::MouseButtonReleased) {
-                up = false;
-                u = false;
             }
         }
     }
