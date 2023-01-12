@@ -65,8 +65,6 @@ public:
                 u = false;
             }
         }
-            cout << "vjggj"<< endl;
-        
     }
 
     void drawMenu(RenderWindow& wind) {

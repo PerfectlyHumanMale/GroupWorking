@@ -558,7 +558,9 @@ void MinigameMethods(int num) {
 void WorkerMenuMethods(int num) {
     switch (num) {
     case 1:
-		cout << "1";
+		worker[numberofworkers].setLocation(CargoHold.getLocation());
+		worker[numberofworkers].spawn(window);
+		numberofworkers++;
         break;
     case 2:
 		cout << "2";
@@ -581,9 +583,6 @@ void BuildMenuMethods(int num) {
 		cout << "h";
 		break;
 	}
-}
-void createFile(string fileName) {
-    ofstream MyWriteFile(fileName+".txt");
 }
 #pragma endregion menuMethods
 
@@ -620,7 +619,6 @@ int main()
         window.clear(Color::Black);
        #pragma endregion houseKeeping	
 	
-		//MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
         #pragma region bars 
         totalOxygen = 150 + numberofworkers * 20;
         totalHunger = 150 + numberofworkers * 20;
@@ -726,13 +724,17 @@ int main()
 		
         #pragma region Gameloop
         hungerdrain = 0.01 * numberofworkers;
-        currentHunger -= hungerdrain;
-
+		if (currentHunger>0) {
+			currentHunger -= hungerdrain;
+		}
         powerdrain = 0.01 * numberofrooms;
-        currentPower -= powerdrain;
-
+		if (currentPower > 0) {
+			currentPower -= powerdrain;
+		}
         oxegyendrian = 0.01 * numberofworkers;
-        currentOxygen -= oxegyendrian;
+		if (currentOxygen > 0) {
+			currentOxygen -= oxegyendrian;
+		}
         for (int j = 0; j < 100; j++) {
             CargoHold.spawn(window);
 
@@ -748,7 +750,6 @@ int main()
             else if(room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 2 && currentHunger < totalHunger) {
                 currentHunger += room[j].Output(worker[j].getLocation());
             }
-            //MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
             worker[j].spawn(window);
             worker[j].moveToRoom(CargoHold.getLocation());
             worker[j].Output();
