@@ -68,13 +68,13 @@ public:
         garden_tex.loadFromFile("Food.png");
         astronote_tex.loadFromFile("Spaceman.png");
         canten_tex.loadFromFile("Canteen.png");
-        //elevater_tex.loadFromFile(".png");
+        elevater_tex.loadFromFile("Elevator.png");
 
-        if (cargoX == getLocation().x) {
-            //sprite.setTexture(elevater_tex);
+        if (cargoX == sprite.getPosition().x) {
+            sprite.setTexture(elevater_tex);
+            Type = 3;
         }
-        else {
-            switch (type) {
+            switch (Type) {
             case 0:
                 sprite.setTexture(genarater_tex);
                 break;
@@ -84,11 +84,13 @@ public:
             case 2:
                 sprite.setTexture(canten_tex);
                 break;
+            case 3:
+                sprite.setTexture(elevater_tex);
+                break;
             default:
                 s.setFillColor(Color(255, 255, 255));
                 break;
             }
-        }
     }
 
     float Output(Vector2f worker) {

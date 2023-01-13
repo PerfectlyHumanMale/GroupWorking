@@ -106,7 +106,6 @@ public:
     }
 
     void loadFile(string loadedData, RenderWindow& window) {
-
         string st;
         stringstream ss(loadedData);
 

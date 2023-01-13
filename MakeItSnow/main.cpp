@@ -661,14 +661,13 @@ int main()
 		if (Keyboard::isKeyPressed(Keyboard::A)) {
 			loadstuff();
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Space)) {
-			Asteroids();
-		}
 #pragma endregion buttonStuff
 
-#pragma region clickarea
+
+#pragma region roomplacement
 		bool here = false;
 		bool roomhere = false;
+		bool elevator = false;
 		int x = MouseFolllowor.getPosition().x;
 		int y = MouseFolllowor.getPosition().y;
 		for (int j = 0; j < 100; j++) {
@@ -686,30 +685,56 @@ int main()
 			}
 			if (room[j].getLocation() == Vector2f(MouseFolllowor.getPosition().x - (x % 100), MouseFolllowor.getPosition().y - (y % 100))) {
 				roomhere = true;
-				LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
-				workernumber = worker[j].desplaynumber(MouseFolllowor, click);
+			}
+
+			if (MouseFolllowor.getPosition().x - (x % 100) == CargoHold.getLocation().x) {
+				elevator = true;
+			}
+			else {
+				elevator = false;
 			}
 		}
 		if (steel >= 10 && here == true && roomhere == false) {
-			if (Keyboard::isKeyPressed(Keyboard::Num1)) {
-				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
-				room[numberofrooms].determinType(0, CargoHold.getLocation().x);
-				steel -= 10;
-				numberofrooms++;
+				if (Keyboard::isKeyPressed(Keyboard::Num1) && elevator == false) {
+					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+					room[numberofrooms].determinType(0, CargoHold.getLocation().x);
+					steel -= 10;
+					numberofrooms++;
+				}
+				else if (Keyboard::isKeyPressed(Keyboard::Num1) && elevator == true) {
+					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+					room[numberofrooms].determinType(3, CargoHold.getLocation().x);
+					steel -= 10;
+					numberofrooms++;
+				}
+				if (Keyboard::isKeyPressed(Keyboard::Num2) && elevator == false) {
+					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+					room[numberofrooms].determinType(1, CargoHold.getLocation().x);
+					steel -= 10;
+					numberofrooms++;
+				}
+				else if (Keyboard::isKeyPressed(Keyboard::Num1) && elevator == true) {
+					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+					room[numberofrooms].determinType(3, CargoHold.getLocation().x);
+					steel -= 10;
+					numberofrooms++;
+				}
+				if (Keyboard::isKeyPressed(Keyboard::Num3) && elevator == false) {
+					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+					room[numberofrooms].determinType(2, CargoHold.getLocation().x);
+					steel -= 10;
+					numberofrooms++;
+				}
+				else if (Keyboard::isKeyPressed(Keyboard::Num1) && elevator == true) {
+					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+					room[numberofrooms].determinType(3, CargoHold.getLocation().x);
+					steel -= 10;
+					numberofrooms++;
+				}
 			}
-			else if (Keyboard::isKeyPressed(Keyboard::Num2)) {
-				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
-				room[numberofrooms].determinType(1, CargoHold.getLocation().x);
-				steel -= 10;
-				numberofrooms++;
-			}
-			else if (Keyboard::isKeyPressed(Keyboard::Num3)) {
-				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
-				room[numberofrooms].determinType(2, CargoHold.getLocation().x);
-				steel -= 10;
-				numberofrooms++;
-			}
-		}
+		
+#pragma endregion roomplacement
+#pragma region clickarea
 		if (event.type == Event::MouseButtonPressed && click) {
 			click = false;
 			WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor));
@@ -751,7 +776,6 @@ int main()
 			}
 			worker[j].spawn(window);
 			worker[j].moveToRoom(CargoHold.getLocation());
-			worker[j].Output();
 			workerData[j] = worker[j].saveTheData();
 		}
 
