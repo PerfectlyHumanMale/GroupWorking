@@ -68,7 +68,7 @@ public:
         garden_tex.loadFromFile("Food.png");
         astronote_tex.loadFromFile("Spaceman.png");
         canten_tex.loadFromFile("Canteen.png");
-        elevater_tex.loadFromFile(".png");
+        //elevater_tex.loadFromFile(".png");
 
         if (cargoX == getLocation().x) {
             //sprite.setTexture(elevater_tex);
