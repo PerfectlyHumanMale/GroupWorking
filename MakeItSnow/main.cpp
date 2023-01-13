@@ -405,7 +405,7 @@ void Asteroids() {
 					scrapMetal.back().setPosition(asteroid[i].getPosition());
 
 					// Play the explosion sound
-					explosionSound.play();
+					//explosionSound.play();
 
 					// Erase an asteroid once destroyed and decrement
 					asteroid.erase(asteroid.begin() + i);
@@ -424,7 +424,7 @@ void Asteroids() {
 
 				// If spaceship collides with an asteroid
 				if (Collision::PixelPerfectTest(spr_spaceship, asteroid[i])) {
-					dead.play();
+					//dead.play();
 
 					// Displays game over screen
 					//displayGameOverScreen(winow);
@@ -450,7 +450,7 @@ void Asteroids() {
 				score++;
 				steel++;
 
-				metal.play();
+				//metal.play();
 
 				// Remove the scrap metal from the game and decrement
 				scrapMetal.erase(scrapMetal.begin() + i);
@@ -657,7 +657,7 @@ int main()
 		}
 		if (Keyboard::isKeyPressed(Keyboard::O)) {
 			LocationOfRoom = room[numberofrooms].desplayLocation(MouseFolllowor, click);
-			cout << LocationOfRoom.x  << "  " << LocationOfRoom.y << endl;
+			cout << LocationOfRoom.x << "  " << LocationOfRoom.y << endl;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Q)) {
 			saveStuff(numberofrooms, numberofworkers);
@@ -677,7 +677,7 @@ int main()
 			if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100)) || room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
 				here = true;
 			}
-			else if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100)) || room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) +100, MouseFolllowor.getPosition().y - (y % 100))) {
+			else if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100)) || room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100))) {
 				here = true;
 			}
 			else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) - 100) || CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) - 100)) {
@@ -698,44 +698,44 @@ int main()
 			}
 		}
 		if (steel >= 10 && here == true && roomhere == false) {
-				if (Keyboard::isKeyPressed(Keyboard::Num1) && elevator == false) {
-					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
-					room[numberofrooms].determinType(0, CargoHold.getLocation().x);
-					steel -= 10;
-					numberofrooms++;
-				}
-				else if (Keyboard::isKeyPressed(Keyboard::Num1) && elevator == true) {
-					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
-					room[numberofrooms].determinType(3, CargoHold.getLocation().x);
-					steel -= 10;
-					numberofrooms++;
-				}
-				if (Keyboard::isKeyPressed(Keyboard::Num2) && elevator == false) {
-					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
-					room[numberofrooms].determinType(1, CargoHold.getLocation().x);
-					steel -= 10;
-					numberofrooms++;
-				}
-				else if (Keyboard::isKeyPressed(Keyboard::Num2) && elevator == true) {
-					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
-					room[numberofrooms].determinType(3, CargoHold.getLocation().x);
-					steel -= 10;
-					numberofrooms++;
-				}
-				if (Keyboard::isKeyPressed(Keyboard::Num3) && elevator == false) {
-					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
-					room[numberofrooms].determinType(2, CargoHold.getLocation().x);
-					steel -= 10;
-					numberofrooms++;
-				}
-				else if (Keyboard::isKeyPressed(Keyboard::Num3) && elevator == true) {
-					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
-					room[numberofrooms].determinType(3, CargoHold.getLocation().x);
-					steel -= 10;
-					numberofrooms++;
-				}
+			if (Keyboard::isKeyPressed(Keyboard::Num1) && elevator == false) {
+				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+				room[numberofrooms].determinType(0, CargoHold.getLocation().x);
+				steel -= 10;
+				numberofrooms++;
 			}
-		
+			else if (Keyboard::isKeyPressed(Keyboard::Num1) && elevator == true) {
+				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+				room[numberofrooms].determinType(3, CargoHold.getLocation().x);
+				steel -= 10;
+				numberofrooms++;
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Num2) && elevator == false) {
+				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+				room[numberofrooms].determinType(1, CargoHold.getLocation().x);
+				steel -= 10;
+				numberofrooms++;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num2) && elevator == true) {
+				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+				room[numberofrooms].determinType(3, CargoHold.getLocation().x);
+				steel -= 10;
+				numberofrooms++;
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Num3) && elevator == false) {
+				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+				room[numberofrooms].determinType(2, CargoHold.getLocation().x);
+				steel -= 10;
+				numberofrooms++;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num3) && elevator == true) {
+				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+				room[numberofrooms].determinType(3, CargoHold.getLocation().x);
+				steel -= 10;
+				numberofrooms++;
+			}
+		}
+
 #pragma endregion roomplacement
 #pragma region clickarea
 		if (event.type == Event::MouseButtonPressed && click) {

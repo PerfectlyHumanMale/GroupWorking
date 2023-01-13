@@ -90,6 +90,12 @@ public:
                 return 1;
             }
         }
+    Sprite getSprite() {
+        return sprite;
+    }
+    void setSprite(Sprite s) {
+        sprite = s;
+    }
     void setnumber(int num) {
         workerNumber = num;
     }
@@ -99,7 +105,7 @@ public:
             return workerNumber;
         }
         return 0;
-    }
+    } 
     int getnumber(){
         return workerNumber;
     }
