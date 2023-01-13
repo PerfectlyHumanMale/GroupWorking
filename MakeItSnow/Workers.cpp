@@ -101,6 +101,9 @@ public:
         }
         return 0;
     }
+    int getnumber(){
+        return workerNumber;
+    }
 
     void loadFile(string loadedData, RenderWindow& window) {
 

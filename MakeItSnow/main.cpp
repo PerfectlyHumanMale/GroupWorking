@@ -46,6 +46,10 @@ bool click = true;
 
 Rooms room[100];
 Workers worker[100];
+//vector <Rooms> room;
+//vector <Workers> worker;
+//Rooms myroom;
+//Workers myworker;
 Rooms CargoHold;
 
 RenderWindow window(sf::VideoMode(winWidth1, winHeight1), "Main");
@@ -558,26 +562,14 @@ void WorkerMenuMethods(int num) {
 	case 1:
 		worker[numberofworkers].setnumber(numberofworkers);
 		worker[numberofworkers].setLocation(CargoHold.getLocation());
+		workernumber = worker[numberofworkers].getnumber();
+		workernumber++;
 		break;
 	case 2:
 		cout << "2";
 		break;
 	case 3:
 		cout << "3";
-		break;
-	}
-	workernumber++;
-}
-void BuildMenuMethods(int num) {
-	switch (num) {
-	case 1:
-		cout << "p";
-		break;
-	case 2:
-		cout << "o";
-		break;
-	case 3:
-		cout << "h";
 		break;
 	}
 }
@@ -674,7 +666,7 @@ int main()
 		}
 #pragma endregion buttonStuff
 
-#pragma region RoomPlacement
+#pragma region clickarea
 		bool here = false;
 		bool roomhere = false;
 		int x = MouseFolllowor.getPosition().x;
@@ -718,36 +710,33 @@ int main()
 				numberofrooms++;
 			}
 		}
-
 		if (event.type == Event::MouseButtonPressed && click) {
 			click = false;
-
 			WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor));
 			MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
-			
 			BuildMenu.tabClick(MouseFolllowor);
 		}
 		else if (event.type == Event::MouseButtonReleased) {
 			click = true;
 		}
-#pragma endregion RoomPlacement
+#pragma endregion clickarea
 
 #pragma region Gameloop
-		hungerdrain = 0.01 * numberofworkers;
+		hungerdrain = 0.001 * numberofworkers;
 		if (currentHunger > 0) {
 			currentHunger -= hungerdrain;
 		}
-		powerdrain = 0.01 * numberofrooms;
+		powerdrain = 0.001 * numberofrooms;
 		if (currentPower > 0) {
 			currentPower -= powerdrain;
 		}
-		oxegyendrian = 0.01 * numberofworkers;
+		oxegyendrian = 0.001 * numberofworkers;
 		if (currentOxygen > 0) {
 			currentOxygen -= oxegyendrian;
 		}
 		for (int j = 0; j < 100; j++) {
 			CargoHold.spawn(window);
-
+			workernumber = worker[j].desplaynumber(MouseFolllowor, click);
 			LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
 			room[j].returnClick(MouseFolllowor);
 			room[j].spawn(window);
