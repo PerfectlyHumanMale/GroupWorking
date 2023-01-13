@@ -36,7 +36,8 @@ Menus BuildMenu;
 
 int steel = 80;
 int t = 0;
-int workernumber;
+int workernumber = 0;
+int roomnumber = 0;
 int numberofrooms = 0;
 int numberofworkers = 0;
 
@@ -563,8 +564,10 @@ void WorkerMenuMethods(int num) {
 		worker[numberofworkers].setnumber(numberofworkers);
 		worker[numberofworkers].setLocation(CargoHold.getLocation());
 		workernumber = worker[numberofworkers].getnumber();
-		worker[numberofworkers].setRoom(CargoHold.getLocation());
+		worker[numberofworkers].setRoom(room[1].getLocation());
 		numberofworkers++;
+		cout << numberofworkers << " numberofworkers" << endl;
+		cout << workernumber << " workernumber" << endl;
 		break;
 	case 2:
 		cout << "2";
@@ -654,7 +657,7 @@ int main()
 		}
 		if (Keyboard::isKeyPressed(Keyboard::O)) {
 			LocationOfRoom = room[numberofrooms].desplayLocation(MouseFolllowor, click);
-			//Asteroids();
+			cout << LocationOfRoom.x  << "  " << LocationOfRoom.y << endl;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Q)) {
 			saveStuff(numberofrooms, numberofworkers);
@@ -663,7 +666,6 @@ int main()
 			loadstuff();
 		}
 #pragma endregion buttonStuff
-
 
 #pragma region roomplacement
 		bool here = false;
@@ -741,6 +743,11 @@ int main()
 			WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor));
 			MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
 			BuildMenu.tabClick(MouseFolllowor);
+			LocationOfRoom = MouseFolllowor.getPosition();
+			//worker[workernumber].setRoom(LocationOfRoom);
+			Vector2f aplace = Vector2f(MouseFolllowor.getPosition().x - (x % 100), MouseFolllowor.getPosition().y - (y % 100));
+			worker[workernumber].setRoom(aplace);
+			workernumber++;
 		}
 		else if (event.type == Event::MouseButtonReleased) {
 			click = true;
@@ -766,20 +773,22 @@ int main()
 			workerData[j] = worker[j].saveTheData();
 
 			workernumber = worker[j].desplaynumber(MouseFolllowor, click);
-			LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
+			//LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
 
-			room[j].returnClick(MouseFolllowor);
 			room[j].spawn(window);
-			if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 0 && currentOxygen < totalOxygen) {
-				currentOxygen += room[j].Output(worker[j].getLocation());
-			}
-			else if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 1 && currentPower < totalPower) {
-				currentPower += room[j].Output(worker[j].getLocation());
-			}
-			else if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 2 && currentHunger < totalHunger) {
-				currentHunger += room[j].Output(worker[j].getLocation());
-			}
 			worker[j].spawn(window);
+			if (room[j].Output(worker[j].getLocation()) && room[j].getType() == 0 && currentOxygen < totalOxygen) {
+				currentOxygen += 1;
+				//cout << currentOxygen << endl;
+			}
+			else if (room[j].Output(worker[j].getLocation()) && room[j].getType() == 1 /*&& currentPower < totalPower*/) {
+				currentPower += 1;
+				cout << currentPower << endl;
+			}
+			else if (room[j].Output(worker[j].getLocation()) && room[j].getType() == 2 /*&& currentHunger < totalHunger*/) {
+				currentHunger += 1;
+				cout << currentHunger << endl;
+			}
 		}
 
 		window.draw(outObar);

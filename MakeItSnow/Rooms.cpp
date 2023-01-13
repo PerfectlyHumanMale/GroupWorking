@@ -44,22 +44,6 @@ public:
     Vector2f getLocation() {
         return Location;
     }
-
-    void CalulateOutput() {
-        int workers;
-        switch (Type) {
-        case 1:
-            oxagen += 1;
-            break;
-        case 2:
-            energy += 1;
-            break;
-        case 3:
-            food += 1;
-            break;
-        }
-        return;
-    }
     
     //Types are Green House = 0, Genarater = 1, Kitchen = 2, Elevater = 3
     void determinType(int type, int cargoX) {
@@ -72,14 +56,14 @@ public:
 
         if (cargoX == sprite.getPosition().x) {
             sprite.setTexture(elevater_tex);
-            Type = 3;
+            type = 3;
         }
-            switch (Type) {
+            switch (type) {
             case 0:
-                sprite.setTexture(genarater_tex);
+                sprite.setTexture(garden_tex);
                 break;
             case 1:
-                sprite.setTexture(garden_tex);
+                sprite.setTexture(genarater_tex);
                 break;
             case 2:
                 sprite.setTexture(canten_tex);
@@ -93,18 +77,21 @@ public:
             }
     }
 
-    float Output(Vector2f worker) {
+    bool Output(Vector2f worker) {
         if (s.getGlobalBounds().contains(worker)) {
-            return 0.6;
+            return true;
+        }
+        else {
+            return false;
         }
     }
     int getType() {
         return Type;
     }
-    Vector2f returnClick(CircleShape MouseFolllowor) {
+    int returnClick(CircleShape MouseFolllowor) {
         if (Keyboard::isKeyPressed(Keyboard::O) && s.getGlobalBounds().contains(MouseFolllowor.getPosition())) {
             cout << to_string(roomNumber);
-            return MouseFolllowor.getPosition();
+            return roomNumber;
         }
     }
     void setnumber(int num) {
@@ -112,7 +99,7 @@ public:
     }
     Vector2f desplayLocation(CircleShape MouseFolllowor, bool click) {
         if (s.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
-            //cout << "clicked ";
+            cout << "ked " << endl;
             return getLocation();
         }
     }

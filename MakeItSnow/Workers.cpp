@@ -95,7 +95,7 @@ public:
     }
     int desplaynumber(CircleShape MouseFolllowor, bool click) {
         if (sprite.getGlobalBounds().contains(MouseFolllowor.getPosition()) && !click) {
-            cout << "clicked ";
+            cout << workerNumber<< endl;
             return workerNumber;
         }
         return 0;
