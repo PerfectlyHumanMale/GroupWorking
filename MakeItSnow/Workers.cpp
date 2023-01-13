@@ -42,7 +42,6 @@ public:
         cargoLocation = v;
     }
     void spawn(sf::RenderWindow& wind) {
-
         sprite.setPosition(Location);
         sprite.setScale(Vector2f(0.03, 0.03));
         //s.setPosition(Location);

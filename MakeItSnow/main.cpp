@@ -564,7 +564,6 @@ void WorkerMenuMethods(int num) {
 		worker[numberofworkers].setLocation(CargoHold.getLocation());
 		workernumber = worker[numberofworkers].getnumber();
 		numberofworkers++;
-		cout << numberofworkers << endl;
 		break;
 	case 2:
 		cout << "2";
@@ -714,7 +713,7 @@ int main()
 					steel -= 10;
 					numberofrooms++;
 				}
-				else if (Keyboard::isKeyPressed(Keyboard::Num1) && elevator == true) {
+				else if (Keyboard::isKeyPressed(Keyboard::Num2) && elevator == true) {
 					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
 					room[numberofrooms].determinType(3, CargoHold.getLocation().x);
 					steel -= 10;
@@ -726,7 +725,7 @@ int main()
 					steel -= 10;
 					numberofrooms++;
 				}
-				else if (Keyboard::isKeyPressed(Keyboard::Num1) && elevator == true) {
+				else if (Keyboard::isKeyPressed(Keyboard::Num3) && elevator == true) {
 					room[numberofrooms].setLocation(MouseFolllowor.getPosition());
 					room[numberofrooms].determinType(3, CargoHold.getLocation().x);
 					steel -= 10;
