@@ -563,7 +563,8 @@ void WorkerMenuMethods(int num) {
 		worker[numberofworkers].setnumber(numberofworkers);
 		worker[numberofworkers].setLocation(CargoHold.getLocation());
 		workernumber = worker[numberofworkers].getnumber();
-		workernumber++;
+		numberofworkers++;
+		cout << numberofworkers << endl;
 		break;
 	case 2:
 		cout << "2";
