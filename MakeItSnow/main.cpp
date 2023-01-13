@@ -477,76 +477,75 @@ void Asteroids() {
 #pragma endregion astriod 
 
 void gridview(RenderWindow& wind) {
-    vector<RectangleShape> v;
-    for (int i = 0; i < 11; i++) {
-        v.push_back(RectangleShape());
-        v.back().setPosition(i * 100, 0);
-        v.back().setFillColor(Color::White);
-        v.back().setSize(Vector2f(2, 1000));
-        wind.draw(v.back());
-    }
-    for (int j = 0; j < 10; j++) {
-        v.push_back(RectangleShape());
-        v.back().setPosition(0, j * 100);
-        v.back().setFillColor(Color::White);
-        v.back().setSize(Vector2f(1100, 2));
-        wind.draw(v.back());
-    }
+	vector<RectangleShape> v;
+	for (int i = 0; i < 11; i++) {
+		v.push_back(RectangleShape());
+		v.back().setPosition(i * 100, 0);
+		v.back().setFillColor(Color::White);
+		v.back().setSize(Vector2f(2, 1000));
+		wind.draw(v.back());
+	}
+	for (int j = 0; j < 10; j++) {
+		v.push_back(RectangleShape());
+		v.back().setPosition(0, j * 100);
+		v.back().setFillColor(Color::White);
+		v.back().setSize(Vector2f(1100, 2));
+		wind.draw(v.back());
+	}
 }
 void saveStuff(int numberOfRooms, int numberOfWorkers) {
-    ofstream MyWorkerWriteFile("WorkerFile.txt");
-    ofstream MyRoomWriteFile("RoomFile.txt");
-    ofstream MyReasourseWriteFile("ResourseFile.txt");
+	ofstream MyWorkerWriteFile("WorkerFile.txt");
+	ofstream MyRoomWriteFile("RoomFile.txt");
+	ofstream MyReasourseWriteFile("ResourseFile.txt");
 
-    //MyReasourseWriteFile << currentOxygen << "\n";
-    //MyReasourseWriteFile << currentHunger << "\n";
-    //MyReasourseWriteFile << currentPower << "\n";
-    //MyReasourseWriteFile << metal << "\n";
-    //MyReasourseWriteFile.close();
+	MyReasourseWriteFile << currentOxygen << "\n";
+	MyReasourseWriteFile << currentHunger << "\n";
+	MyReasourseWriteFile << currentPower << "\n";
+	MyReasourseWriteFile << steel << "\n";
+	MyReasourseWriteFile.close();
 
-    string ah;
+	string ah;
 
-    for (int j = 0; j < numberOfWorkers; j++) {
-        MyWorkerWriteFile << workerData[j] << "\n";
-    }
-    MyWorkerWriteFile.close();
-    string ds;
-    for (int j = 0; j < numberOfRooms; j++) {
-        ds = room[j].saveData();
-        MyRoomWriteFile << ds << "\n";
-        //cout << ds << endl;
-    }
-    MyRoomWriteFile.close();
+	for (int j = 0; j < numberOfWorkers; j++) {
+		MyWorkerWriteFile << workerData[j] << "\n";
+	}
+	MyWorkerWriteFile.close();
+	string ds;
+	for (int j = 0; j < numberOfRooms; j++) {
+		ds = room[j].saveData();
+		MyRoomWriteFile << ds << "\n";
+		//cout << ds << endl;
+	}
+	MyRoomWriteFile.close();
 }
 void loadstuff() {
-    ifstream MyWorkerReadFile("WorkerFile.txt");
-    ifstream MyRoomReadFile("RoomFile.txt");
-    ifstream MyResoursesReadFile("ResourseFile.txt");
+	ifstream MyWorkerReadFile("WorkerFile.txt");
+	ifstream MyRoomReadFile("RoomFile.txt");
+	ifstream MyResoursesReadFile("ResourseFile.txt");
 
-    string h;
-    string n;
-    string l;
-    int resoursesArray[3];
-    int roomNum = 0;
-    int workerNum = 0;
-    int ResourseNum = 0;
-    while (getline(MyWorkerReadFile, h)) {
-        worker[workerNum].loadFile(h,window);
-        workerNum++;
-    }
-    while (getline(MyRoomReadFile, n)) {
-        room[roomNum].loadFile(n,window);
-        roomNum++;
-    }
-    while (getline(MyResoursesReadFile, l)) {
-        resoursesArray[ResourseNum] = stoi(l);
-        ResourseNum++;
-    }
-    numberofrooms += roomNum;
+	string h;
+	string n;
+	string l;
+	int stuffarraye[5];
+	int roomNum = 0;
+	int workerNum = 0;
+	int ResourseNum = 0;
+	while (getline(MyWorkerReadFile, h)) {
+		worker[workerNum].loadFile(h, window);
+		workerNum++;
+	}
+	while (getline(MyRoomReadFile, n)) {
+		room[roomNum].loadFile(n, window);
+		roomNum++;
+	}
+	while (getline(MyResoursesReadFile, l)) {
+		stuffarraye[ResourseNum] = stoi(l);
+		ResourseNum++;
+	}
+	numberofrooms += roomNum;
 }
 
 #pragma region menuMethods
- 
 void MinigameMethods(int num) {
 	switch (num) {
 	case 1:
@@ -556,20 +555,19 @@ void MinigameMethods(int num) {
 	}
 }
 void WorkerMenuMethods(int num) {
-    switch (num) {
-    case 1:
+	switch (num) {
+	case 1:
+		worker[numberofworkers].setnumber(numberofworkers);
 		worker[numberofworkers].setLocation(CargoHold.getLocation());
-		worker[numberofworkers].spawn(window);
-		numberofworkers++;
-        break;
-    case 2:
+		break;
+	case 2:
 		cout << "2";
-        break;
-    case 3:
+		break;
+	case 3:
 		cout << "3";
-        break;
-    }
-	//workernumber++;
+		break;
+	}
+	workernumber++;
 }
 void BuildMenuMethods(int num) {
 	switch (num) {
@@ -588,192 +586,205 @@ void BuildMenuMethods(int num) {
 
 int main()
 {
-    #pragma region defineMenu 
-    MinigameMenu.setKey(Keyboard::B);
-    MinigameMenu.createMenu(Vector2f(300, 400), Vector2f(300, 100));
-    MinigameMenu.createTab(6);
+#pragma region defineMenu 
+	MinigameMenu.setKey(Keyboard::B);
+	MinigameMenu.createMenu(Vector2f(300, 400), Vector2f(300, 100));
+	MinigameMenu.createTab(6);
 
-    WorkerMenu.setKey(Keyboard::N);
-    WorkerMenu.createMenu(Vector2f(300, 400), Vector2f(0, 0));
-    WorkerMenu.createTab(6);
+	WorkerMenu.setKey(Keyboard::N);
+	WorkerMenu.createMenu(Vector2f(300, 400), Vector2f(0, 0));
+	WorkerMenu.createTab(6);
 
-    BuildMenu.setKey(Keyboard::M);
-    BuildMenu.createMenu(Vector2f(300, 400), Vector2f(800, 0));
-    BuildMenu.createTab(6);
-    #pragma endregion defineMenu
+	BuildMenu.setKey(Keyboard::M);
+	BuildMenu.createMenu(Vector2f(300, 400), Vector2f(800, 0));
+	BuildMenu.createTab(6);
+#pragma endregion defineMenu
 
-    #pragma region defineCargo
-    CargoHold.setLocation(Vector2f(winWidth1 / 2, winHeight1 / 2));
-    CargoHold.setFillColor(Color(255, 255, 255));
-    CargoHold.setOutlineThickness(10);
-    #pragma endregion defineCargo
+#pragma region defineCargo
+	CargoHold.setLocation(Vector2f(winWidth1 / 2, winHeight1 / 2));
+	CargoHold.setFillColor(Color(255, 255, 255));
+	CargoHold.setOutlineThickness(10);
+#pragma endregion defineCargo
 
-    #pragma region houseKeeping
-    while (window.isOpen()) {
-        Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == Event::Closed) {
-                window.close();
-            }
-        }
-        window.clear(Color::Black);
-       #pragma endregion houseKeeping	
-	
-        #pragma region bars 
-        totalOxygen = 150 + numberofworkers * 20;
-        totalHunger = 150 + numberofworkers * 20;
-        totalPower = 150 + numberofrooms * 20;
+#pragma region houseKeeping
+	while (window.isOpen()) {
+		Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				window.close();
+			}
+		}
+		window.clear(Color::Black);
+#pragma endregion houseKeeping	
 
-        outHbar.setOutlineColor(Color(255, 255, 255));
-        outHbar.setOutlineThickness(2);
-        outHbar.setSize(Vector2f(totalHunger, 40));
-        outHbar.setPosition(Vector2f(10, 10));
-        outHbar.setFillColor(Color::Black);
+#pragma region bars 
+		totalOxygen = 150 + numberofworkers * 20;
+		totalHunger = 150 + numberofworkers * 20;
+		totalPower = 150 + numberofrooms * 20;
 
-        innerHbar.setPosition(Vector2f(10, 10));
-        innerHbar.setFillColor(Color::Red);
-        innerHbar.setSize(Vector2f(currentHunger, 40));
+		outHbar.setOutlineColor(Color(255, 255, 255));
+		outHbar.setOutlineThickness(2);
+		outHbar.setSize(Vector2f(totalHunger, 40));
+		outHbar.setPosition(Vector2f(10, 10));
+		outHbar.setFillColor(Color::Black);
 
-        outPbar.setOutlineColor(Color(255, 255, 255));
-        outPbar.setOutlineThickness(2);
-        outPbar.setSize(Vector2f(totalPower, 40));
-        outPbar.setPosition(Vector2f(10, 60));
-        outPbar.setFillColor(Color::Black);
+		innerHbar.setPosition(Vector2f(10, 10));
+		innerHbar.setFillColor(Color::Red);
+		innerHbar.setSize(Vector2f(currentHunger, 40));
 
-        innerPbar.setFillColor(Color::Yellow);
-        innerPbar.setSize(Vector2f(currentPower, 40));
-        innerPbar.setPosition(Vector2f(10, 60));
+		outPbar.setOutlineColor(Color(255, 255, 255));
+		outPbar.setOutlineThickness(2);
+		outPbar.setSize(Vector2f(totalPower, 40));
+		outPbar.setPosition(Vector2f(10, 60));
+		outPbar.setFillColor(Color::Black);
 
-        outObar.setOutlineColor(Color(255, 255, 255));
-        outObar.setOutlineThickness(2);
-        outObar.setSize(Vector2f(totalOxygen, 40));
-        outObar.setPosition(Vector2f(10, 110));
-        outObar.setFillColor(Color::Black);
+		innerPbar.setFillColor(Color::Yellow);
+		innerPbar.setSize(Vector2f(currentPower, 40));
+		innerPbar.setPosition(Vector2f(10, 60));
 
-        innerObar.setFillColor(Color::Green);
-        innerObar.setSize(Vector2f(currentOxygen, 40));
-        innerObar.setPosition(Vector2f(10, 110));
-        #pragma endregion bars 
+		outObar.setOutlineColor(Color(255, 255, 255));
+		outObar.setOutlineThickness(2);
+		outObar.setSize(Vector2f(totalOxygen, 40));
+		outObar.setPosition(Vector2f(10, 110));
+		outObar.setFillColor(Color::Black);
 
-        #pragma region buttonStuff
-        if (Keyboard::isKeyPressed(Keyboard::H)) {
-            steel += 10;
-        }
-        if (Keyboard::isKeyPressed(Keyboard::G)) {
-            gridview(window);
-        }
-        if (Keyboard::isKeyPressed(Keyboard::O)) {
-            LocationOfRoom = room[numberofrooms].desplayLocation(MouseFolllowor, click);
-            //Asteroids();
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Q)) {
-            saveStuff(numberofrooms, numberofworkers);
-        }
-        if (Keyboard::isKeyPressed(Keyboard::A)) {
-            loadstuff();
-        }
+		innerObar.setFillColor(Color::Green);
+		innerObar.setSize(Vector2f(currentOxygen, 40));
+		innerObar.setPosition(Vector2f(10, 110));
+#pragma endregion bars 
+
+#pragma region buttonStuff
+		if (Keyboard::isKeyPressed(Keyboard::H)) {
+			steel += 10;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::G)) {
+			gridview(window);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::O)) {
+			LocationOfRoom = room[numberofrooms].desplayLocation(MouseFolllowor, click);
+			//Asteroids();
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Q)) {
+			saveStuff(numberofrooms, numberofworkers);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::A)) {
+			loadstuff();
+		}
 		if (Keyboard::isKeyPressed(Keyboard::Space)) {
 			Asteroids();
 		}
-        #pragma endregion buttonStuff
+#pragma endregion buttonStuff
 
-        #pragma region RoomPlacement
-        if (event.type == Event::MouseButtonPressed && click) {
-            click = false;
-            bool here = false;
-            bool roomhere = false;
-            int x = MouseFolllowor.getPosition().x;
-            int y = MouseFolllowor.getPosition().y;
-			MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
-			BuildMenuMethods(BuildMenu.tabClick(MouseFolllowor));
+#pragma region RoomPlacement
+		bool here = false;
+		bool roomhere = false;
+		int x = MouseFolllowor.getPosition().x;
+		int y = MouseFolllowor.getPosition().y;
+		for (int j = 0; j < 100; j++) {
+			if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100)) || room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
+				here = true;
+			}
+			else if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100)) || room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100))) {
+				here = true;
+			}
+			else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) - 100) || CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
+				here = true;
+			}
+			else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) + 100) || CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100))) {
+				here = true;
+			}
+			if (room[j].getLocation() == Vector2f(MouseFolllowor.getPosition().x - (x % 100), MouseFolllowor.getPosition().y - (y % 100))) {
+				roomhere = true;
+				LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
+				workernumber = worker[j].desplaynumber(MouseFolllowor, click);
+			}
+		}
+		if (steel >= 10 && here == true && roomhere == false) {
+			if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+				room[numberofrooms].determinType(0, CargoHold.getLocation().x);
+				steel -= 10;
+				numberofrooms++;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+				room[numberofrooms].determinType(1, CargoHold.getLocation().x);
+				steel -= 10;
+				numberofrooms++;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Num3)) {
+				room[numberofrooms].setLocation(MouseFolllowor.getPosition());
+				room[numberofrooms].determinType(2, CargoHold.getLocation().x);
+				steel -= 10;
+				numberofrooms++;
+			}
+		}
+
+		if (event.type == Event::MouseButtonPressed && click) {
+			click = false;
+
 			WorkerMenuMethods(WorkerMenu.tabClick(MouseFolllowor));
+			MinigameMethods(MinigameMenu.tabClick(MouseFolllowor));
+			
+			BuildMenu.tabClick(MouseFolllowor);
+		}
+		else if (event.type == Event::MouseButtonReleased) {
+			click = true;
+		}
+#pragma endregion RoomPlacement
 
-            for (int j = 0; j < 100; j++) { 
-                if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100)) || room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) -100, MouseFolllowor.getPosition().y - (y % 100))) {
-                    here = true;
-                }
-                else if (CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100)) ||room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100))) {
-                    here = true;
-                }
-                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) - 100) || CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) - 100, MouseFolllowor.getPosition().y - (y % 100))) {
-                    here = true;
-                }
-                else if (room[j].getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)), MouseFolllowor.getPosition().y - (y % 100) + 100) || CargoHold.getLocation() == Vector2f((MouseFolllowor.getPosition().x - (x % 100)) + 100, MouseFolllowor.getPosition().y - (y % 100))) {
-                    here = true;
-                }
-                if (room[j].getLocation() == Vector2f(MouseFolllowor.getPosition().x - (x % 100), MouseFolllowor.getPosition().y - (y % 100))) {
-                    roomhere = true;
-                    LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
-                    workernumber = worker[j].desplaynumber(MouseFolllowor, click);
-                }
-            }
-            if (steel >= 10 && here == true && roomhere == false) {
-                room[numberofrooms].setLocation(MouseFolllowor.getPosition());
-                room[numberofrooms].determinType(numberofrooms % 3, CargoHold.getLocation().x);
-                steel -= 10;
-                numberofrooms++;
-            }
-            worker[numberofworkers].setnumber(numberofworkers);
-            worker[workernumber].setRoom(LocationOfRoom);
-            worker[numberofworkers].setLocation(CargoHold.getLocation());
-        }
-        else if (event.type == Event::MouseButtonReleased) {
-            click = true;
-        }
-        #pragma endregion RoomPlacement
-		
-        #pragma region Gameloop
-        hungerdrain = 0.01 * numberofworkers;
-		if (currentHunger>0) {
+#pragma region Gameloop
+		hungerdrain = 0.01 * numberofworkers;
+		if (currentHunger > 0) {
 			currentHunger -= hungerdrain;
 		}
-        powerdrain = 0.01 * numberofrooms;
+		powerdrain = 0.01 * numberofrooms;
 		if (currentPower > 0) {
 			currentPower -= powerdrain;
 		}
-        oxegyendrian = 0.01 * numberofworkers;
+		oxegyendrian = 0.01 * numberofworkers;
 		if (currentOxygen > 0) {
 			currentOxygen -= oxegyendrian;
 		}
-        for (int j = 0; j < 100; j++) {
-            CargoHold.spawn(window);
+		for (int j = 0; j < 100; j++) {
+			CargoHold.spawn(window);
 
-            LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
-            room[j].returnClick(MouseFolllowor);
-            room[j].spawn(window);
-            if (room[j].Output(worker[j].getLocation()) >0 && room[j].getType() == 0 && currentOxygen<totalOxygen) {
-                currentOxygen += room[j].Output(worker[j].getLocation());
-            }
-            else if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 1 && currentPower < totalPower) {
-                currentPower += room[j].Output(worker[j].getLocation());
-            }
-            else if(room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 2 && currentHunger < totalHunger) {
-                currentHunger += room[j].Output(worker[j].getLocation());
-            }
-            worker[j].spawn(window);
-            worker[j].moveToRoom(CargoHold.getLocation());
-            worker[j].Output();
-            workerData[j] = worker[j].saveTheData();
-        }
-		
-        window.draw(outObar);
-        window.draw(innerObar);
-        window.draw(outPbar);
-        window.draw(innerPbar);
-        window.draw(outHbar);
-        window.draw(innerHbar);
+			LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
+			room[j].returnClick(MouseFolllowor);
+			room[j].spawn(window);
+			if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 0 && currentOxygen < totalOxygen) {
+				currentOxygen += room[j].Output(worker[j].getLocation());
+			}
+			else if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 1 && currentPower < totalPower) {
+				currentPower += room[j].Output(worker[j].getLocation());
+			}
+			else if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 2 && currentHunger < totalHunger) {
+				currentHunger += room[j].Output(worker[j].getLocation());
+			}
+			worker[j].spawn(window);
+			worker[j].moveToRoom(CargoHold.getLocation());
+			worker[j].Output();
+			workerData[j] = worker[j].saveTheData();
+		}
 
-        MinigameMenu.drawMenu(window);
-        BuildMenu.drawMenu(window);
-        WorkerMenu.drawMenu(window);
-        #pragma endregion Gameloop
+		window.draw(outObar);
+		window.draw(innerObar);
+		window.draw(outPbar);
+		window.draw(innerPbar);
+		window.draw(outHbar);
+		window.draw(innerHbar);
 
-        #pragma region defineMouse
-        MouseFolllowor.setPosition(Mouse::getPosition().x - 425, Mouse::getPosition().y - 80);
-        MouseFolllowor.setRadius(10);
-        window.draw(MouseFolllowor);
-        #pragma endregion defineMouse
-        window.display();
-    }
-    return 0;
+		MinigameMenu.drawMenu(window);
+		BuildMenu.drawMenu(window);
+		WorkerMenu.drawMenu(window);
+#pragma endregion Gameloop
+
+#pragma region defineMouse
+		MouseFolllowor.setPosition(Mouse::getPosition().x - 425, Mouse::getPosition().y - 80);
+		MouseFolllowor.setRadius(10);
+		window.draw(MouseFolllowor);
+#pragma endregion defineMouse
+		window.display();
+	}
+	return 0;
 }

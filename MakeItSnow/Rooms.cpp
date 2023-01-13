@@ -14,13 +14,15 @@ using namespace std;
 class Rooms : public RectangleShape {
     Vector2f Location;
     
+    bool yes;
+
     int roomNumber;
     int oxagen = 10;
     int energy = 10;
     int food = 10;
 
     int Type;//Types are Green House = 1, Genarater = 2, Kitchen = 3, Elevater = 4
-    Texture genarater_tex, garden_tex, astronote_tex, canten_tex;
+    Texture genarater_tex, garden_tex, astronote_tex, canten_tex, elevater_tex;
     Sprite sprite;
 
     RectangleShape s;
@@ -37,7 +39,7 @@ public:
         sprite.setPosition(Location);
         sprite.setScale(Vector2f(0.048828125, 0.048828125));
         wind.draw(s);
-        wind.draw(sprite);
+        wind.draw(sprite);        
     }
     Vector2f getLocation() {
         return Location;
@@ -66,9 +68,10 @@ public:
         garden_tex.loadFromFile("Food.png");
         astronote_tex.loadFromFile("Spaceman.png");
         canten_tex.loadFromFile("Canteen.png");
+        elevater_tex.loadFromFile(".png");
 
         if (cargoX == getLocation().x) {
-            s.setFillColor(Color(100, 0, 0));
+            //sprite.setTexture(elevater_tex);
         }
         else {
             switch (type) {
