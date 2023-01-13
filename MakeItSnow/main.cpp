@@ -84,7 +84,23 @@ float oxygenPercentage = ((float)currentOxygen / (float)totalOxygen) * 100;
 string roomData[100];
 string workerData[100];
 #pragma endregion publicVerables 
-
+void gridview(RenderWindow& wind) {
+	vector<RectangleShape> v;
+	for (int i = 0; i < 11; i++) {
+		v.push_back(RectangleShape());
+		v.back().setPosition(i * 100, 0);
+		v.back().setFillColor(Color::White);
+		v.back().setSize(Vector2f(2, 1000));
+		wind.draw(v.back());
+	}
+	for (int j = 0; j < 10; j++) {
+		v.push_back(RectangleShape());
+		v.back().setPosition(0, j * 100);
+		v.back().setFillColor(Color::White);
+		v.back().setSize(Vector2f(1100, 2));
+		wind.draw(v.back());
+	}
+}
 #pragma region astriod 
 // A C++ SFML program with falling asteroids and a moving spaceship - Justin Simpson
 
@@ -481,23 +497,7 @@ void Asteroids() {
 
 #pragma endregion astriod 
 
-void gridview(RenderWindow& wind) {
-	vector<RectangleShape> v;
-	for (int i = 0; i < 11; i++) {
-		v.push_back(RectangleShape());
-		v.back().setPosition(i * 100, 0);
-		v.back().setFillColor(Color::White);
-		v.back().setSize(Vector2f(2, 1000));
-		wind.draw(v.back());
-	}
-	for (int j = 0; j < 10; j++) {
-		v.push_back(RectangleShape());
-		v.back().setPosition(0, j * 100);
-		v.back().setFillColor(Color::White);
-		v.back().setSize(Vector2f(1100, 2));
-		wind.draw(v.back());
-	}
-}
+
 void saveStuff(int numberOfRooms, int numberOfWorkers) {
 	ofstream MyWorkerWriteFile("WorkerFile.txt");
 	ofstream MyRoomWriteFile("RoomFile.txt");
