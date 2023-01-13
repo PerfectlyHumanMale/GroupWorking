@@ -563,6 +563,7 @@ void WorkerMenuMethods(int num) {
 		worker[numberofworkers].setnumber(numberofworkers);
 		worker[numberofworkers].setLocation(CargoHold.getLocation());
 		workernumber = worker[numberofworkers].getnumber();
+		worker[numberofworkers].setRoom(CargoHold.getLocation());
 		numberofworkers++;
 		break;
 	case 2:
@@ -759,10 +760,14 @@ int main()
 		if (currentOxygen > 0) {
 			currentOxygen -= oxegyendrian;
 		}
+		CargoHold.spawn(window);
 		for (int j = 0; j < 100; j++) {
-			CargoHold.spawn(window);
+			worker[j].moveToRoom(CargoHold.getLocation());
+			workerData[j] = worker[j].saveTheData();
+
 			workernumber = worker[j].desplaynumber(MouseFolllowor, click);
 			LocationOfRoom = room[j].desplayLocation(MouseFolllowor, click);
+
 			room[j].returnClick(MouseFolllowor);
 			room[j].spawn(window);
 			if (room[j].Output(worker[j].getLocation()) > 0 && room[j].getType() == 0 && currentOxygen < totalOxygen) {
@@ -775,8 +780,6 @@ int main()
 				currentHunger += room[j].Output(worker[j].getLocation());
 			}
 			worker[j].spawn(window);
-			worker[j].moveToRoom(CargoHold.getLocation());
-			workerData[j] = worker[j].saveTheData();
 		}
 
 		window.draw(outObar);
